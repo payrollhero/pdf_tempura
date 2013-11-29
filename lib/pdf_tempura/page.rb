@@ -13,5 +13,9 @@ module PdfTempura
 
     attr_reader :number, :fields
 
+    def ==(other)
+      self.number == other.number
+    end
+
   end
 end

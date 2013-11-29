@@ -25,4 +25,18 @@ describe PdfTempura::Page do
 
   end
 
+  describe "#==" do
+    context "when they have the same page number" do
+      let(:other){ described_class.new(100) }
+
+      it{ should == other }
+    end
+
+    context "when they have different page numbers" do
+      let(:other){ described_class.new(200) }
+
+      it{ should_not == other }
+    end
+  end
+
 end
