@@ -2,9 +2,7 @@ require 'spec_helper'
 
 describe PdfTempura::Render::TextField do
 
-  # TODO: convert to real class objects
-  #let(:field) { Field.new("foo", [0,0], [0,0], type: "text") }
-  let(:field) { double("field", type: "text") }
+  let(:field) { PdfTempura::Field.new("foo", [0,0], [0,0], type: "text") }
 
   describe "initialize" do
     example do

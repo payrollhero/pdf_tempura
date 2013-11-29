@@ -4,9 +4,9 @@ describe PdfTempura::Render::FieldDataMapper do
 
   let(:fields) do
     [
-      double("field1", name: "one"),
-      double("field2", name: "bar"),
-      double("field3", name: "baz"),
+      PdfTempura::Field.new("one", [0,0], [0,0]),
+      PdfTempura::Field.new("bar", [0,0], [0,0]),
+      PdfTempura::Field.new("baz", [0,0], [0,0]),
     ]
   end
 

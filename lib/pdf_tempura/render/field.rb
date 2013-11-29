@@ -3,11 +3,11 @@ module PdfTempura
     class Field
 
       def self.generate(field, value)
-        case field.kind
-        when :text
+        case field.type
+        when "text"
           TextField.new(field, value)
         else
-          raise ArgumentError, "don't know how to handle field kind: #{field.kind.inspect}"
+          raise ArgumentError, "don't know how to handle field kind: #{field.type.inspect}"
         end
       end
 

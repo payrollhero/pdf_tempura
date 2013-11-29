@@ -5,9 +5,7 @@ describe PdfTempura::Render::Field do
   describe ".generate" do
 
     context "when passing a text field" do
-      # TODO: update to use actual class
-      #let(:field) { Field.new("foo", [0,0], [0,0], type: "text") }
-      let(:field) { double(:field, :kind => :text) } # temporary until Field class exists
+      let(:field) { PdfTempura::Field.new("foo", [0,0], [0,0], type: "text") }
 
       it "returns a TextField object" do
         object = described_class.generate(field, "foo")
@@ -16,9 +14,7 @@ describe PdfTempura::Render::Field do
     end
 
     context "when passing a diffrent field" do
-      # TODO: update to use actual class
-      #let(:field) { Field.new("foo", [0,0], [0,0], type: "stars") }
-      let(:field) { double(:field, :kind => :stars) } # temporary until Field class exists
+      let(:field) { PdfTempura::Field.new("foo", [0,0], [0,0], type: "stars") }
 
       it "raises an ArgumentError" do
         expect {
