@@ -39,8 +39,8 @@ module PdfTempura
 
     attr_reader :data
 
-    def render
-      # add render integration here
+    def render(&block)
+      # PdfTempura::Renderer.new(self.template_file_path, self.class.pages, self.data, { debug: self.class.debug_options }.render(&block)
     end
 
   end
