@@ -1,6 +1,9 @@
-require "pdf_tempura/version"
-require "pdf_tempura/render"
+require_relative "pdf_tempura/version"
+require_relative "pdf_tempura/render"
 
 module PdfTempura
-  # Your code goes here...
 end
+
+require_relative 'pdf_tempura/field'
+require_relative 'pdf_tempura/page'
+require_relative 'pdf_tempura/document'
