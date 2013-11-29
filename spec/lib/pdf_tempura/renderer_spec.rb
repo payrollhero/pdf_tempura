@@ -9,14 +9,14 @@ describe PdfTempura::Renderer do
   describe "initialize" do
     example do
       expect {
-        described_class.new("/some/path.pdf", pages, data, options)
+        described_class.new(sample_pdf_path, pages, data, options)
       }.not_to raise_exception
     end
   end
 
   describe "#render" do
     subject do
-      described_class.new("/some/path.pdf", pages, data, options)
+      described_class.new(sample_pdf_path, pages, data, options)
     end
 
     it "yields" do
@@ -37,7 +37,7 @@ describe PdfTempura::Renderer do
         begin
           tempfile.write file.read
           tempfile.flush
-          expect(`file -bI #{tempfile.path.inspect}`.strip).to eq("application/pdf")
+          expect(`file -b --mime-type #{tempfile.path.inspect}`.strip).to eq("application/pdf")
         ensure
           tempfile.unlink
         end

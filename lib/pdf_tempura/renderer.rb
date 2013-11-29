@@ -1,4 +1,5 @@
 require 'tempfile'
+require 'prawn'
 
 module PdfTempura
   class Renderer
@@ -13,6 +14,9 @@ module PdfTempura
     def render
       tempfile = Tempfile.new("render")
       begin
+
+        pdf = Prawn::Document.new(template: @template_path)
+        tempfile.write pdf.render
 
         # write the pdf to it
 

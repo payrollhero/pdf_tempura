@@ -20,4 +20,8 @@ RSpec.configure do |config|
   config.order = 'random'
 end
 
+def sample_pdf_path
+  "spec/assets/sample_pdf_form.pdf"
+end
+
 require 'pdf_tempura'
