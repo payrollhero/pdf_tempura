@@ -16,10 +16,12 @@ module PdfTempura
       begin
 
         pdf = Prawn::Document.new(template: @template_path)
+
+        @pages.each do |page|
+          Render::Page.new(page, @data[page.number]).render(pdf)
+        end
+
         tempfile.write pdf.render
-
-        # write the pdf to it
-
         tempfile.rewind
         yield(tempfile)
       ensure
