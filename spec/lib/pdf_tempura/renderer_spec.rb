@@ -1,7 +1,49 @@
 require 'spec_helper'
 
-#describe PdfTempura::Renderer do
-  # new(path_to_pdf, fields, data, options)
-  # .render -> yields file handle
-#end
+describe PdfTempura::Renderer do
 
+  let(:pages) { [double("page")] }
+  let(:data) { { 1 => {} } }
+  let(:options) { { debug: [] } }
+
+  describe "initialize" do
+    example do
+      expect {
+        described_class.new("/some/path.pdf", pages, data, options)
+      }.not_to raise_exception
+    end
+  end
+
+  describe "#render" do
+    subject do
+      described_class.new("/some/path.pdf", pages, data, options)
+    end
+
+    it "yields" do
+      expect { |x|
+        subject.render(&x)
+      }.to yield_control
+    end
+
+    it "yields an object that responds to read" do
+      subject.render do |file|
+        expect(file).to respond_to(:read)
+      end
+    end
+
+    it "yields a file with a pdf in it" do
+      subject.render do |file|
+        tempfile = Tempfile.new("spec")
+        begin
+          tempfile.write file.read
+          tempfile.flush
+          expect(`file -bI #{tempfile.path.inspect}`.strip).to eq("application/pdf")
+        ensure
+          tempfile.unlink
+        end
+      end
+    end
+
+  end
+
+end
