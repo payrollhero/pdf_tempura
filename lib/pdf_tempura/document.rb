@@ -23,6 +23,14 @@ module PdfTempura
         nil
       end
 
+      def debug_options
+        @debug_options ||= []
+      end
+
+      def debug(*options)
+        debug_options.concat options
+      end
+
     end
 
     def initialize(data = {})

@@ -45,6 +45,19 @@ describe PdfTempura::Document do
     end
   end
 
+  describe ".debug" do
+    it "stores the debug options" do
+      described_class.debug :grid, :outlines
+      described_class.debug_options.should == [:grid, :outlines]
+    end
+  end
+
+  describe ".debug_options" do
+    it "returns an array" do
+      described_class.pages.should be_a(Array)
+    end
+  end
+
   let(:data){ {} }
 
   subject{ described_class.new(data) }
