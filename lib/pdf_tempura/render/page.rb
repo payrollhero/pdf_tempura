@@ -9,9 +9,11 @@ module PdfTempura
 
       def render(pdf)
         pdf.go_to_page(@page.number)
-        pairs = Render::FieldDataMapper.map(@page.fields, @data)
-        pairs.each do |(field, value)|
-          Render::Field.generate(field, value).render(pdf)
+        pdf.bounding_box([0,0], :width => pdf.bounds.width, :height => pdf.bounds.height) do
+          pairs = Render::FieldDataMapper.map(@page.fields, @data)
+          pairs.each do |(field, value)|
+            Render::Field.generate(field, value).render(pdf)
+          end
         end
       end
 

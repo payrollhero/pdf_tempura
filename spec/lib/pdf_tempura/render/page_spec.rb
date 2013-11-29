@@ -4,7 +4,13 @@ describe PdfTempura::Render::Page do
 
   let(:page) { PdfTempura::Page.new(1) }
   let(:data) { { } }
-  let(:pdf) { double(:pdf) }
+  let(:pdf) { Prawn::Document.new }
+
+  before do
+    pdf.stub(:bounding_box) do |&block|
+      block.call
+    end
+  end
 
   describe "init" do
     example do
