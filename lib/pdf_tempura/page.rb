@@ -17,5 +17,9 @@ module PdfTempura
       self.number == other.number
     end
 
+    def field(*args)
+      fields << Field.new(*args)
+    end
+
   end
 end
