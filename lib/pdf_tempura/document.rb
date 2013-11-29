@@ -19,7 +19,7 @@ module PdfTempura
       def page(page_number, &block)
         page = Page.new(page_number)
         pages << page
-        page.instance_eval &block
+        page.instance_eval(&block)
         nil
       end
 
@@ -40,7 +40,7 @@ module PdfTempura
     attr_reader :data
 
     def render(&block)
-      # PdfTempura::Renderer.new(self.template_file_path, self.class.pages, self.data, { debug: self.class.debug_options }.render(&block)
+      PdfTempura::Renderer.new(self.class.template_file_path, self.class.pages, self.data, { debug: self.class.debug_options }).render(&block)
     end
 
   end
