@@ -18,8 +18,6 @@ describe PdfTempura::Render::TextField do
 
     subject { described_class.new(field, "foo", options) }
 
-    it "works"
-
     describe "calling the annotation drawing code when enabled" do
       let(:options) do
         {

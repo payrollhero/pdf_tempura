@@ -3,7 +3,7 @@ require 'spec_helper'
 describe PdfTempura::Render::TextField::AnnotationRenderer do
 
   let(:pdf) { Prawn::Document.new }
-  let(:field) { PdfTempura::Field.new("foo", [0,0], [0,0]) }
+  let(:field) { PdfTempura::Field.new("foo", [0,0], [100,100]) }
 
   subject { described_class.new(field) }
 
