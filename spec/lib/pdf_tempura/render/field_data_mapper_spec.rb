@@ -1,5 +1,31 @@
 require 'spec_helper'
 
-#describe PdfTempura::Render::FieldDataMapper do
-  # .map(fields, data) => [ [field, value], ... ]
-#end
+describe PdfTempura::Render::FieldDataMapper do
+
+  let(:fields) do
+    [
+      PdfTempura::Field.new("one", [0,0], [0,0]),
+      PdfTempura::Field.new("bar", [0,0], [0,0]),
+      PdfTempura::Field.new("baz", [0,0], [0,0]),
+    ]
+  end
+
+  let(:data) do
+    {
+      "one" => "a1",
+      "bar" => "a2",
+      "bla" => "a4",
+    }
+  end
+
+  describe ".map" do
+    example do
+      described_class.map(fields, data).should == {
+        fields[0] => "a1",
+        fields[1] => "a2",
+        fields[2] => nil,
+      }
+    end
+  end
+
+end

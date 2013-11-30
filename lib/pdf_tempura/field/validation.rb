@@ -2,7 +2,7 @@ module PdfTempura
   class Field
     module Validation
 
-      OPTIONS = ["type", "default_value", "font_size", "bold", "alignment", "multi_line"]
+      OPTIONS = ["type", "default_value", "font_size", "bold", "alignment", "multi_line", "padding"]
 
       private
 
@@ -78,6 +78,10 @@ module PdfTempura
 
       def validate_multi_line
         raise ArgumentError, "Option 'multi_line' must be true or false." unless [TrueClass, FalseClass, NilClass].include?(options["multi_line"].class)
+      end
+
+      def validate_padding
+        raise ArgumentError, "Option 'padding' must be an array containing 4 numbers, the top, right, bottom, left padding values." unless options["padding"].kind_of?(Array) && options["padding"].size == 4 && options["padding"].all? { |i| i.kind_of?(Numeric) }
       end
 
     end

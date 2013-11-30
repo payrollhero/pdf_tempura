@@ -13,7 +13,8 @@ describe PdfTempura::Field do
       font_size: font_size,
       bold: bold,
       alignment: alignment,
-      multi_line: multi_line
+      multi_line: multi_line,
+      padding: padding,
     }
   end
 
@@ -23,6 +24,7 @@ describe PdfTempura::Field do
   let(:bold){ true }
   let(:alignment){ :center }
   let(:multi_line){ true }
+  let(:padding) { [1,2,3,4] }
 
 
   subject{ described_class.new(name, coordinates, dimensions, options) }
@@ -40,6 +42,7 @@ describe PdfTempura::Field do
   it{ should be_bold }
   its(:alignment){ should == "center" }
   it{ should be_multi_line }
+  its(:padding) { should == [1,2,3,4] }
 
   describe "defaults" do
     subject{ described_class.new(name, coordinates, dimensions) }
@@ -49,6 +52,7 @@ describe PdfTempura::Field do
     its(:font_size){ should == 10 }
     it{ should_not be_bold }
     its(:alignment){ should == "left" }
+    its(:padding) { should == [0,0,0,0] }
     it{ should_not be_multi_line }
   end
 
@@ -237,6 +241,19 @@ describe PdfTempura::Field do
             }.to raise_error ArgumentError, "Option 'multi_line' must be true or false."
           end
         end
+
+        context "padding" do
+          context "as an object other than Array" do
+            let(:padding){ "1,2,3,4" }
+
+            it "throws an error" do
+              expect{
+                described_class.new(name, coordinates, dimensions, options)
+              }.to raise_error ArgumentError, "Option 'padding' must be an array containing 4 numbers, the top, right, bottom, left padding values."
+            end
+          end
+        end
+
       end
     end
 
