@@ -64,5 +64,9 @@ module PdfTempura
       !!options["multi_line"]
     end
 
+    def padding
+      options["padding"] || [0,0,0,0]
+    end
+
   end
 end
