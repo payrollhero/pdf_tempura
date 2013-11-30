@@ -4,11 +4,13 @@ describe PdfTempura::Render::Field do
 
   describe ".generate" do
 
+    let(:options) { {} }
+
     context "when passing a text field" do
       let(:field) { PdfTempura::Field.new("foo", [0,0], [0,0], type: "text") }
 
       it "returns a TextField object" do
-        object = described_class.generate(field, "foo")
+        object = described_class.generate(field, "foo", options)
         object.should be_kind_of(PdfTempura::Render::TextField)
       end
     end
@@ -18,7 +20,7 @@ describe PdfTempura::Render::Field do
 
       it "raises an ArgumentError" do
         expect {
-          described_class.generate(field, "foo")
+          described_class.generate(field, "foo", options)
         }.to raise_exception(ArgumentError)
       end
     end

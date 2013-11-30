@@ -71,8 +71,8 @@ describe PdfTempura::Renderer do
 
       # bit of an implementation test, but can't see a better way to do it right now
       it "calls render on each page" do
-        PdfTempura::Render::Page.should_receive(:new).with(pages[0], data[1]).and_return(render_page_1)
-        PdfTempura::Render::Page.should_receive(:new).with(pages[1], data[2]).and_return(render_page_2)
+        PdfTempura::Render::Page.should_receive(:new).with(pages[0], data[1], options).and_return(render_page_1)
+        PdfTempura::Render::Page.should_receive(:new).with(pages[1], data[2], options).and_return(render_page_2)
         render_page_1.should_receive(:render)
         render_page_2.should_receive(:render)
         subject.render do |file|; end
