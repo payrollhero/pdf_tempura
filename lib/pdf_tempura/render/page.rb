@@ -12,13 +12,11 @@ module PdfTempura
 
       def render(pdf)
         pdf.go_to_page(@page.number)
-        #pdf.bounding_box([0,pdf.bounds.height], :width => pdf.bounds.width, :height => pdf.bounds.height) do
-          Render::Page::GridRenderer.new.render(pdf) if draw_grid?
-          pairs = Render::FieldDataMapper.map(@page.fields, @data)
-          pairs.each do |(field, value)|
-            Render::Field.generate(field, value, @options).render(pdf)
-          end
-        #end
+        Render::Page::GridRenderer.new.render(pdf) if draw_grid?
+        pairs = Render::FieldDataMapper.map(@page.fields, @data)
+        pairs.each do |(field, value)|
+          Render::Field.generate(field, value, @options).render(pdf)
+        end
       end
 
     end
