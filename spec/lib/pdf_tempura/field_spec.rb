@@ -26,7 +26,6 @@ describe PdfTempura::Field do
   let(:multi_line){ true }
   let(:padding) { [1,2,3,4] }
 
-
   subject{ described_class.new(name, coordinates, dimensions, options) }
 
   its(:name){ should == "name" }
@@ -69,7 +68,7 @@ describe PdfTempura::Field do
       it "throws an error" do
         expect{
           described_class.new(name, coordinates, dimensions, options)
-        }.to raise_error ArgumentError, "Name must be a string or symbol."
+        }.to raise_error ArgumentError, "Name must be of type String."
       end
     end
 
@@ -80,7 +79,7 @@ describe PdfTempura::Field do
         it "throws an error" do
           expect{
             described_class.new(name, coordinates, dimensions, options)
-          }.to raise_error ArgumentError, "Coordinates must be an array containing two numbers, one for the x position and one for the y position."
+          }.to raise_error ArgumentError, "Coordinates must be of type Array."
         end
       end
 
@@ -90,7 +89,7 @@ describe PdfTempura::Field do
         it "throws an error" do
           expect{
             described_class.new(name, coordinates, dimensions, options)
-          }.to raise_error ArgumentError, "Coordinates must be an array containing two numbers, one for the x position and one for the y position."
+          }.to raise_error ArgumentError, "Coordinates must contain only Numeric values."
         end
       end
 
@@ -100,7 +99,7 @@ describe PdfTempura::Field do
         it "throws an error" do
           expect{
             described_class.new(name, coordinates, dimensions, options)
-          }.to raise_error ArgumentError, "Coordinates must be an array containing two numbers, one for the x position and one for the y position."
+          }.to raise_error ArgumentError, "Coordinates must contain 2 values."
         end
       end
 
@@ -110,7 +109,7 @@ describe PdfTempura::Field do
         it "throws an error" do
           expect{
             described_class.new(name, coordinates, dimensions, options)
-          }.to raise_error ArgumentError, "Coordinates must be an array containing two numbers, one for the x position and one for the y position."
+          }.to raise_error ArgumentError, "Coordinates must contain 2 values."
         end
       end
     end
@@ -122,7 +121,7 @@ describe PdfTempura::Field do
         it "throws an error" do
           expect{
             described_class.new(name, coordinates, dimensions, options)
-          }.to raise_error ArgumentError, "Dimensions must be an array containing two numbers, one for the width and one for the height."
+          }.to raise_error ArgumentError, "Dimensions must be of type Array."
         end
       end
 
@@ -132,7 +131,7 @@ describe PdfTempura::Field do
         it "throws an error" do
           expect{
             described_class.new(name, coordinates, dimensions, options)
-          }.to raise_error ArgumentError, "Dimensions must be an array containing two numbers, one for the width and one for the height."
+          }.to raise_error ArgumentError, "Dimensions must contain only Numeric values."
         end
       end
 
@@ -142,7 +141,7 @@ describe PdfTempura::Field do
         it "throws an error" do
           expect{
             described_class.new(name, coordinates, dimensions, options)
-          }.to raise_error ArgumentError, "Dimensions must be an array containing two numbers, one for the width and one for the height."
+          }.to raise_error ArgumentError, "Dimensions must contain 2 values."
         end
       end
 
@@ -152,7 +151,7 @@ describe PdfTempura::Field do
         it "throws an error" do
           expect{
             described_class.new(name, coordinates, dimensions, options)
-          }.to raise_error ArgumentError, "Dimensions must be an array containing two numbers, one for the width and one for the height."
+          }.to raise_error ArgumentError, "Dimensions must contain 2 values."
         end
       end
 
@@ -169,18 +168,6 @@ describe PdfTempura::Field do
         end
       end
 
-      context "as a hash with an unknown option" do
-        before :each do
-          options[:whatever] = "blah"
-        end
-
-        it "throws an error" do
-          expect{
-            described_class.new(name, coordinates, dimensions, options)
-          }.to raise_error ArgumentError, "Options hash contains an unknown option 'whatever'."
-        end
-      end
-
       context "as a hash with a bad value for" do
         context "type" do
           let(:type){ "super super" }
@@ -188,17 +175,7 @@ describe PdfTempura::Field do
           it "throws an error" do
             expect{
               described_class.new(name, coordinates, dimensions, options)
-            }.to raise_error ArgumentError, "Option 'type' must be either 'text', 'checkbox' or 'box-list'."
-          end
-        end
-
-        context "default_value" do
-          let(:default_value){ 3 }
-
-          it "throws an error" do
-            expect{
-              described_class.new(name, coordinates, dimensions, options)
-            }.to raise_error ArgumentError, "Option 'default_value' is not valid for the type 'box-list'."
+            }.to raise_error ArgumentError, "Type must be one of the following values: text, checkbox, box-list."
           end
         end
 
@@ -208,7 +185,7 @@ describe PdfTempura::Field do
           it "throws an error" do
             expect{
               described_class.new(name, coordinates, dimensions, options)
-            }.to raise_error ArgumentError, "Option 'font_size' must be a number."
+            }.to raise_error ArgumentError, "Font_size must be of type Numeric."
           end
         end
 
@@ -218,7 +195,7 @@ describe PdfTempura::Field do
           it "throws an error" do
             expect{
               described_class.new(name, coordinates, dimensions, options)
-            }.to raise_error ArgumentError, "Option 'bold' must be true or false."
+            }.to raise_error ArgumentError, "Bold must be one of the following values: true, false."
           end
         end
 
@@ -228,7 +205,7 @@ describe PdfTempura::Field do
           it "throws an error" do
             expect{
               described_class.new(name, coordinates, dimensions, options)
-            }.to raise_error ArgumentError, "Option 'alignment' must be either 'left', 'right' or 'center'."
+            }.to raise_error ArgumentError, "Alignment must be one of the following values: left, right, center."
           end
         end
 
@@ -238,25 +215,53 @@ describe PdfTempura::Field do
           it "throws an error" do
             expect{
               described_class.new(name, coordinates, dimensions, options)
-            }.to raise_error ArgumentError, "Option 'multi_line' must be true or false."
+            }.to raise_error ArgumentError, "Multi_line must be one of the following values: true, false."
           end
         end
 
         context "padding" do
           context "as an object other than Array" do
-            let(:padding){ "1,2,3,4" }
+            let(:padding){ "1x1" }
 
             it "throws an error" do
               expect{
                 described_class.new(name, coordinates, dimensions, options)
-              }.to raise_error ArgumentError, "Option 'padding' must be an array containing 4 numbers, the top, right, bottom, left padding values."
+              }.to raise_error ArgumentError, "Padding must be of type Array."
+            end
+          end
+
+          context "by passing an invalid x or y coordinate" do
+            let(:padding){ ["a", "b" ] }
+
+            it "throws an error" do
+              expect{
+                described_class.new(name, coordinates, dimensions, options)
+              }.to raise_error ArgumentError, "Padding must contain only Numeric values."
+            end
+          end
+
+          context "by passing not enough coordinates" do
+            let(:padding){ [1] }
+
+            it "throws an error" do
+              expect{
+                described_class.new(name, coordinates, dimensions, options)
+              }.to raise_error ArgumentError, "Padding must contain 4 values."
+            end
+          end
+
+          context "by passing too many coordinates" do
+            let(:padding){ [1, 2, 3] }
+
+            it "throws an error" do
+              expect{
+                described_class.new(name, coordinates, dimensions, options)
+              }.to raise_error ArgumentError, "Padding must contain 4 values."
             end
           end
         end
-
       end
     end
-
   end
 
 end
