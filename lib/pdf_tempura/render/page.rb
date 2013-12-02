@@ -4,16 +4,15 @@ module PdfTempura
 
       include OptionAccess
 
-      def initialize(page, data, options = {})
+      def initialize(page, options = {})
         @page = page
-        @data = data
         @options = options
       end
 
       def render(pdf)
         pdf.go_to_page(@page.number)
         Render::Page::GridRenderer.new.render(pdf) if draw_grid?
-        pairs = Render::FieldDataMapper.map(@page.fields, @data)
+        pairs = Render::FieldDataMapper.map(@page.fields, @page.data)
         pairs.each do |(field, value)|
           Render::Field.generate(field, value, @options).render(pdf)
         end
