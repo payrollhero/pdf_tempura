@@ -1,4 +1,3 @@
-require 'active_support/hash_with_indifferent_access'
 require_relative 'field/validation'
 
 module PdfTempura
@@ -6,23 +5,38 @@ module PdfTempura
     include Validation
 
     def initialize(name, coordinates, dimensions, options = {})
-      @name = name
+      @name = name.is_a?(Symbol) ? name.to_s : name
       @coordinates = coordinates
       @dimensions = dimensions
-      @options = options
 
-      validate_arguments
+      convert_options_hash(options)
+
+      @type = (options["type"] || "text").to_s
+      @default_value = options["default_value"]
+      @font_size = options["font_size"] || 10
+      @bold = options["bold"] || false
+      @alignment = (options["alignment"] || "left").to_s
+      @multi_line = options["multi_line"] || false
+      @padding = options["padding"] || [0,0,0,0]
+
+      validate!
     end
 
-    attr_reader :coordinates, :dimensions
+    attr_reader :coordinates, :dimensions, :name, :type, :default_value,
+      :font_size, :alignment, :bold, :multi_line, :padding
 
-    def name
-      @name.to_s
-    end
+    alias_method :bold?, :bold
+    alias_method :multi_line?, :multi_line
 
-    def options
-      ActiveSupport::HashWithIndifferentAccess.new.merge @options
-    end
+    validates :name, type: String
+    validates :type, inclusion: ["text", "checkbox", "box-list"]
+    validates :coordinates, type: Array, inner_type: Numeric, count: 2
+    validates :dimensions, type: Array, inner_type: Numeric, count: 2
+    validates :font_size, type: Numeric
+    validates :bold, inclusion: [true, false]
+    validates :alignment, inclusion: ["left", "right", "center"]
+    validates :multi_line, inclusion: [true, false]
+    validates :padding, type: Array, inner_type: Numeric, count: 4
 
     def x
       coordinates.first
@@ -40,33 +54,14 @@ module PdfTempura
       dimensions.last
     end
 
-    def type
-      (options["type"] || "text").to_s
+    def convert_options_hash(options)
+      if options.is_a?(Hash)
+        options.extend(Extensions::Hash::StringifyKeys).stringify_keys!
+      else
+        raise ArgumentError, "Options must be a hash."
+      end
     end
 
-    def default_value
-      options["default_value"]
-    end
-
-    def font_size
-      options["font_size"] || 10
-    end
-
-    def bold?
-      !!options["bold"]
-    end
-
-    def alignment
-      (options["alignment"] || "left").to_s
-    end
-
-    def multi_line?
-      !!options["multi_line"]
-    end
-
-    def padding
-      options["padding"] || [0,0,0,0]
-    end
 
   end
 end
