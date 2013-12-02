@@ -21,5 +21,13 @@ module PdfTempura
       fields << Field.new(*args)
     end
 
+    def data
+      @data ||= {}
+    end
+
+    def data=(data)
+      @data = data.extend(Extensions::Hash::StringifyKeys).stringify_keys!
+    end
+
   end
 end
