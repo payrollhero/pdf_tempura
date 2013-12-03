@@ -8,6 +8,8 @@ describe PdfTempura::Render::Page do
   let(:options) { {} }
 
   before do
+    page.data = data
+
     pdf.stub(:bounding_box) do |&block|
       block.call
     end
@@ -16,7 +18,7 @@ describe PdfTempura::Render::Page do
   describe "init" do
     example do
       expect {
-        described_class.new(page, data, options)
+        described_class.new(page, options)
       }.not_to raise_exception
     end
   end
@@ -28,7 +30,7 @@ describe PdfTempura::Render::Page do
     end
 
     subject do
-      described_class.new(page, data, options)
+      described_class.new(page, options)
     end
 
     let(:page) do

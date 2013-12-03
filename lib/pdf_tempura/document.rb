@@ -34,13 +34,25 @@ module PdfTempura
     end
 
     def initialize(data = {})
-      @data = data
+      load_data(data)
     end
 
-    attr_reader :data
+    def pages
+      @pages ||= []
+    end
 
     def render(&block)
-      PdfTempura::Renderer.new(self.class.template_file_path, self.class.pages, self.data, { debug: self.class.debug_options }).render(&block)
+      PdfTempura::Renderer.new(self.class.template_file_path, self.pages, { debug: self.class.debug_options }).render(&block)
+    end
+
+    private
+
+    def load_data(data)
+      self.class.pages.each do |page|
+        self.pages << page.dup.tap{ |new_page|
+          new_page.data = data[page.number] || {}
+        }
+      end
     end
 
   end

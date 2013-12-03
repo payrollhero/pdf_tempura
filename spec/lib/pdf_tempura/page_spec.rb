@@ -60,4 +60,18 @@ describe PdfTempura::Page do
     end
   end
 
+  describe "#data" do
+    let(:data){ { woo: "yes"} }
+
+    it "returns an empty hash when it has no data" do
+      subject.data == {}
+    end
+
+    it "returns the data" do
+      subject.data = { name: "Bruce" }
+      subject.data.should == { "name" => "Bruce" }
+    end
+  end
+
+
 end

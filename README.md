@@ -43,7 +43,7 @@ end
 #### Specifying fields
 
 Fields should be specified inside pages using the `page` method. Fields can be specified by using the `field` method.
-It requires a name, an array of co-ordinates (x and y), and an array of dimensions (width and height). Co-ordinates and dimensions are numbers referencing PDF units, starting from top left.
+It requires a name, an array of co-ordinates (x and y), and an array of dimensions (width and height). Co-ordinates and dimensions are numbers referencing PDF units, starting from bottom left.
 
 ```ruby
 field(name, co-ordinates, dimensions, options)
@@ -57,6 +57,7 @@ It also takes an options hash where you can set the following options:
 - **bold**: True or false. Makes the text bold when set to true. Default is false.
 - **alignment**: "left", "center" or "right". Aligns the text in the boundaries of the field. Default is "left".
 - **multi_line**: True or false. Forces the text to wrap to the next line when it hits the boundaries of the field. Default is false.
+- **padding**: An array of 4 numbers, representing top, right, bottom, left. It adds padding in pdf units inside the field.
 
 ```ruby
 page 1 do
