@@ -4,11 +4,8 @@ shared_examples_for "a document field" do
   let(:name){ :name }
   let(:coordinates){ [10, 20] }
   let(:dimensions){ [200, 100] }
-  let(:default_value){ "Bruce" }
 
-  let(:options){ { default_value: default_value } }
-
-  subject{ described_class.new(name, coordinates, dimensions, options) }
+  subject{ described_class.new(name, coordinates, dimensions) }
 
   its(:name){ should == "name" }
   its(:coordinates){ should == [10, 20] }
@@ -18,16 +15,10 @@ shared_examples_for "a document field" do
   its(:width){ should == 200 }
   its(:height){ should == 100 }
 
-  describe "defaults" do
-    subject{ described_class.new(name, coordinates, dimensions) }
-
-    its(:default_value){ should nil }
-  end
-
   describe "validation" do
     context "when passed valid attributes" do
       it "returns a field object" do
-        described_class.new(name, coordinates, dimensions, options).should be_a(described_class)
+        described_class.new(name, coordinates, dimensions).should be_a(described_class)
       end
     end
 
@@ -36,7 +27,7 @@ shared_examples_for "a document field" do
 
       it "throws an error" do
         expect{
-          described_class.new(name, coordinates, dimensions, options)
+          described_class.new(name, coordinates, dimensions)
         }.to raise_error ArgumentError, "Name must be of type String."
       end
     end
@@ -47,7 +38,7 @@ shared_examples_for "a document field" do
 
         it "throws an error" do
           expect{
-            described_class.new(name, coordinates, dimensions, options)
+            described_class.new(name, coordinates, dimensions)
           }.to raise_error ArgumentError, "Coordinates must be of type Array."
         end
       end
@@ -57,7 +48,7 @@ shared_examples_for "a document field" do
 
         it "throws an error" do
           expect{
-            described_class.new(name, coordinates, dimensions, options)
+            described_class.new(name, coordinates, dimensions)
           }.to raise_error ArgumentError, "Coordinates must contain only Numeric values."
         end
       end
@@ -67,7 +58,7 @@ shared_examples_for "a document field" do
 
         it "throws an error" do
           expect{
-            described_class.new(name, coordinates, dimensions, options)
+            described_class.new(name, coordinates, dimensions)
           }.to raise_error ArgumentError, "Coordinates must contain 2 values."
         end
       end
@@ -77,7 +68,7 @@ shared_examples_for "a document field" do
 
         it "throws an error" do
           expect{
-            described_class.new(name, coordinates, dimensions, options)
+            described_class.new(name, coordinates, dimensions)
           }.to raise_error ArgumentError, "Coordinates must contain 2 values."
         end
       end
@@ -89,7 +80,7 @@ shared_examples_for "a document field" do
 
         it "throws an error" do
           expect{
-            described_class.new(name, coordinates, dimensions, options)
+            described_class.new(name, coordinates, dimensions)
           }.to raise_error ArgumentError, "Dimensions must be of type Array."
         end
       end
@@ -99,7 +90,7 @@ shared_examples_for "a document field" do
 
         it "throws an error" do
           expect{
-            described_class.new(name, coordinates, dimensions, options)
+            described_class.new(name, coordinates, dimensions)
           }.to raise_error ArgumentError, "Dimensions must contain only Numeric values."
         end
       end
@@ -109,7 +100,7 @@ shared_examples_for "a document field" do
 
         it "throws an error" do
           expect{
-            described_class.new(name, coordinates, dimensions, options)
+            described_class.new(name, coordinates, dimensions)
           }.to raise_error ArgumentError, "Dimensions must contain 2 values."
         end
       end
@@ -119,7 +110,7 @@ shared_examples_for "a document field" do
 
         it "throws an error" do
           expect{
-            described_class.new(name, coordinates, dimensions, options)
+            described_class.new(name, coordinates, dimensions)
           }.to raise_error ArgumentError, "Dimensions must contain 2 values."
         end
       end

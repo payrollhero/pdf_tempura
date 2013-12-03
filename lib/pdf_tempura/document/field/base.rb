@@ -13,7 +13,7 @@ module PdfTempura
       validate!
     end
 
-    attr_reader :coordinates, :dimensions, :name, :default_value
+    attr_reader :name, :coordinates, :dimensions
 
     validates :name, type: String
     validates :coordinates, type: Array, inner_type: Numeric, count: 2
@@ -38,7 +38,7 @@ module PdfTempura
     private
 
     def load_options(options)
-      @default_value = options["default_value"]
+      raise NotImplementedError, "Implement 'load_options' in your subclass."
     end
 
     def convert_options_hash(options)

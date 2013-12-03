@@ -1,21 +1,17 @@
 class MyPdf < PdfTempura::Document
+  template "spec/assets/sample_pdf_form.pdf"
 
-  template "/some/path/to/template.pdf"
-
-  group :employee_details do
-    field :first_name, [10, 20], [100, 30]
-    field :surname, [120, 20], [200, 30], { bold: true }
-    field :company, [330, 20], [300, 30], { alignment: right }
-  end
+  debug :outlines
+  debug :grid
 
   page 1 do
-    include_group :employee_details
-    field :address, [10, 20], [500, 60]
+    text_field "name", [193,641.5], [311.5,25], padding: [0,5,0,5]
+    text_field "email", [193,602], [311.5,25.25], padding: [0,5,0,5], bold: true, font_name: "Courier"
+    text_field "reason", [54,481], [502,311], padding: [5,5,5,5], multi_line: true, font_size: 18
   end
 
   page 2 do
-    include_group :employee_details
-    field :emergency_contact, [10, 20], [500, 60]
+    text_field "bar", [50,680], [40,35]
   end
 
 end

@@ -42,17 +42,20 @@ end
 
 #### Specifying fields
 
-Fields should be specified inside pages using the `page` method. Fields can be specified by using the `field` method.
-It requires a name, an array of co-ordinates (x and y), and an array of dimensions (width and height). Co-ordinates and dimensions are numbers referencing PDF units, starting from bottom left.
+Fields should be specified inside pages using the `page` method. Fields can be specified by using one of the following fields methods.
+
+##### Text fields
+
+You can specify a text field using the `text_field` method. It requires a name, an array of coordinates (x and y), and an array of dimensions (width and height).
+Coordinates and dimensions are numbers referencing PDF units, starting from bottom left.
 
 ```ruby
-field(name, co-ordinates, dimensions, options)
+text_field(name, coordinates, dimensions, options)
 ```
 
 It also takes an options hash where you can set the following options:
 
-- **type**: "text", "checkbox" or "box-list".  Defines the type of the field and draws the appropriate type. A box-list will create a box field for each character of the passed text.  Default is "text".
-- **default_value**: The default value for the field. Default is nil.
+- **default_value**: A string value. The default value for the field. Default is nil.
 - **font_size**: A number in pixels (i.e. 13), or auto to change the font to fit the field size. Default is 10px.
 - **font_name**: The name of the font to use. Default: "Helvetica"
 - **italic**: True or false. Makes the text italic when set to true. Default to false.
@@ -63,7 +66,7 @@ It also takes an options hash where you can set the following options:
 
 ```ruby
 page 1 do
-  field :country, [10, 20], [200, 400], { default_value: "USA", font_size: 13, bold: true, alignment: left, multi_line:true }
+  text_field :country, [10, 20], [200, 400], { default_value: "USA", font_size: 13, bold: true, alignment: left, multi_line:true }
 end
 ```
 

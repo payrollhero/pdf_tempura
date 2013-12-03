@@ -4,7 +4,7 @@ describe PdfTempura::Document::TextField do
 
   it_behaves_like "a document field"
 
-  let(:name){ :name }
+  let(:name){ :text_field }
   let(:coordinates){ [10, 20] }
   let(:dimensions){ [200, 100] }
   let(:default_value){ "Bruce" }
@@ -129,6 +129,16 @@ describe PdfTempura::Document::TextField do
           expect{
             described_class.new(name, coordinates, dimensions, options)
           }.to raise_error ArgumentError, "Multi_line must be one of the following values: true, false."
+        end
+      end
+
+      context "default_value" do
+        let(:default_value){ [] }
+
+        it "throws an error" do
+          expect{
+            described_class.new(name, coordinates, dimensions, options)
+          }.to raise_error ArgumentError, "Default_value must be of type String."
         end
       end
 

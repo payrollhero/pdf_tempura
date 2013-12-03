@@ -39,33 +39,25 @@ describe PdfTempura::Document::Page do
     end
   end
 
-  describe ".field" do
-    let(:name){ :name }
+  describe ".text_field" do
+    let(:name){ :text_field }
     let(:coordinates){ [10, 20] }
     let(:dimensions){ [200, 100] }
 
     context "when not passed a type" do
       it "adds a field object given valid attributes" do
         expect{
-          subject.field(name, coordinates, dimensions)
+          subject.text_field(name, coordinates, dimensions)
         }.to change(subject.fields, :count).by (1)
       end
 
       it "creates the correct field object" do
-        subject.field(name, coordinates, dimensions)
+        subject.text_field(name, coordinates, dimensions)
         field = subject.fields.first
         field.should be_a(PdfTempura::Document::TextField)
-        field.name.should == "name"
+        field.name.should == "text_field"
         field.coordinates.should == [10, 20]
         field.dimensions.should == [200, 100]
-      end
-    end
-
-    context "when passed another type" do
-      it "throws an error" do
-        expect{
-          subject.field(name, coordinates, dimensions, { type: "another_type" })
-        }.to raise_error ArgumentError, "Invalid field type 'another_type'."
       end
     end
   end
@@ -82,6 +74,5 @@ describe PdfTempura::Document::Page do
       subject.data.should == { "name" => "Bruce" }
     end
   end
-
 
 end

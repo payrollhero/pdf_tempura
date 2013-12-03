@@ -1,25 +1,9 @@
 require 'spec_helper'
+require_relative '../example/my_pdf'
 
 describe PdfTempura do
 
   describe "integration" do
-
-    class MyDocument < PdfTempura::Document
-      template "spec/assets/sample_pdf_form.pdf"
-
-      debug :outlines
-      debug :grid
-
-      page 1 do
-        field "name", [193,641.5], [311.5,25], padding: [0,5,0,5]
-        field "email", [193,602], [311.5,25.25], padding: [0,5,0,5], bold: true, font_name: "Courier"
-        field "reason", [54,481], [502,311], padding: [5,5,5,5], multi_line: true, font_size: 18
-      end
-
-      page 2 do
-        field "bar", [50,680], [40,35]
-      end
-    end
 
     let(:data) do
       {
@@ -40,7 +24,7 @@ describe PdfTempura do
 
     example do
       FileUtils.mkdir_p("tmp")
-      MyDocument.new(data).render do |file|
+      MyPdf.new(data).render do |file|
         File.open("tmp/integration.pdf", "w") do |fh|
           fh.write(file.read)
         end

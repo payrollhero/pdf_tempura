@@ -35,8 +35,8 @@ describe PdfTempura::Render::Page do
 
     let(:page) do
       page = PdfTempura::Document::Page.new(1)
-      page.field "one", [0,0], [0,0]
-      page.field "two", [0,0], [0,0]
+      page.text_field "one", [0,0], [0,0]
+      page.text_field "two", [0,0], [0,0]
       page
     end
 
