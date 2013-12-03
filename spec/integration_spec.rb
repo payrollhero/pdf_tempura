@@ -12,7 +12,7 @@ describe PdfTempura do
 
       page 1 do
         field "name", [193,641.5], [311.5,25], padding: [0,5,0,5]
-        field "email", [193,602], [311.5,25.25], padding: [0,5,0,5]
+        field "email", [193,602], [311.5,25.25], padding: [0,5,0,5], bold: true, font_name: "Courier"
         field "reason", [54,481], [502,311], padding: [5,5,5,5], multi_line: true, font_size: 18
       end
 

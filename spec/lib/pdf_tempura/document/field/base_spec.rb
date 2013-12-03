@@ -10,8 +10,10 @@ describe PdfTempura::Document::Field::Base do
     {
       type: type,
       default_value: default_value,
+      font_name: font_name,
       font_size: font_size,
       bold: bold,
+      italic: italic,
       alignment: alignment,
       multi_line: multi_line,
       padding: padding,
@@ -21,7 +23,9 @@ describe PdfTempura::Document::Field::Base do
   let(:type){ "box-list" }
   let(:default_value){ "Bruce" }
   let(:font_size){ 13 }
+  let(:font_name){ "Helvetica" }
   let(:bold){ true }
+  let(:italic){ true }
   let(:alignment){ :center }
   let(:multi_line){ true }
   let(:padding) { [1,2,3,4] }
@@ -37,8 +41,10 @@ describe PdfTempura::Document::Field::Base do
   its(:height){ should == 100 }
   its(:type){ should == "box-list" }
   its(:default_value){ should == "Bruce" }
+  its(:font_name){ should == "Helvetica" }
   its(:font_size){ should == 13 }
   it{ should be_bold }
+  it{ should be_italic }
   its(:alignment){ should == "center" }
   it{ should be_multi_line }
   its(:padding) { should == [1,2,3,4] }
@@ -189,6 +195,16 @@ describe PdfTempura::Document::Field::Base do
           end
         end
 
+        context "font_name" do
+          let(:font_name){ 0 }
+
+          it "throws an error" do
+            expect{
+              described_class.new(name, coordinates, dimensions, options)
+            }.to raise_error ArgumentError, "Font_name must be of type String."
+          end
+        end
+
         context "bold" do
           let(:bold){ 3 }
 
@@ -196,6 +212,16 @@ describe PdfTempura::Document::Field::Base do
             expect{
               described_class.new(name, coordinates, dimensions, options)
             }.to raise_error ArgumentError, "Bold must be one of the following values: true, false."
+          end
+        end
+
+        context "italic" do
+          let(:italic){ 3 }
+
+          it "throws an error" do
+            expect{
+              described_class.new(name, coordinates, dimensions, options)
+            }.to raise_error ArgumentError, "Italic must be one of the following values: true, false."
           end
         end
 
