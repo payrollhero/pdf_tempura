@@ -62,6 +62,29 @@ describe PdfTempura::Document::Page do
     end
   end
 
+  describe ".checkbox_field" do
+    let(:name){ :checkbox_field}
+    let(:coordinates){ [10, 20] }
+    let(:dimensions){ [20, 20] }
+
+    context "when not passed a type" do
+      it "adds a field object given valid attributes" do
+        expect{
+          subject.checkbox_field(name, coordinates, dimensions)
+        }.to change(subject.fields, :count).by (1)
+      end
+
+      it "creates the correct field object" do
+        subject.checkbox_field(name, coordinates, dimensions)
+        field = subject.fields.first
+        field.should be_a(PdfTempura::Document::CheckboxField)
+        field.name.should == "checkbox_field"
+        field.coordinates.should == [10, 20]
+        field.dimensions.should == [20, 20]
+      end
+    end
+  end
+
   describe "#data" do
     let(:data){ { woo: "yes"} }
 
