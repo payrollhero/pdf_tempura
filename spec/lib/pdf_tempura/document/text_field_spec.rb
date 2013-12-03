@@ -32,7 +32,6 @@ describe PdfTempura::Document::TextField do
 
   subject{ described_class.new(name, coordinates, dimensions, options) }
 
-  its(:type){ should == "text" }
   its(:default_value){ should == "Bruce" }
   its(:font_name){ should == "Helvetica" }
   its(:font_size){ should == 13 }

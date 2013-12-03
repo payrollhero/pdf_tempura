@@ -15,10 +15,6 @@ module PdfTempura
     validates :multi_line, inclusion: [true, false]
     validates :padding, type: Array, inner_type: Numeric, count: 4
 
-    def type
-      "text"
-    end
-
     private
 
     def load_options(options)

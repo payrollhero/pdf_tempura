@@ -19,10 +19,6 @@ module PdfTempura
     validates :coordinates, type: Array, inner_type: Numeric, count: 2
     validates :dimensions, type: Array, inner_type: Numeric, count: 2
 
-    def type
-      raise NotImplementedError, "Implement method 'type' in your subclass."
-    end
-
     def x
       coordinates.first
     end
