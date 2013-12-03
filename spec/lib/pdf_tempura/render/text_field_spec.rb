@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe PdfTempura::Render::TextField do
 
-  let(:field) { PdfTempura::Document::Field::Base.new("foo", [0,0], [100,100], type: "text") }
+  let(:field) { PdfTempura::Document::TextField.new("foo", [0,0], [100,100]) }
   let(:options) { {} }
   let(:pdf) { Prawn::Document.new }
 

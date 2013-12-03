@@ -6,7 +6,7 @@ describe PdfTempura::Render::Field do
     let(:options) { {} }
 
     context "when passing a text field" do
-      let(:field) { PdfTempura::Document::Field::Base.new("foo", [0,0], [0,0], type: "text") }
+      let(:field) { PdfTempura::Document::TextField.new("foo", [0,0], [0,0]) }
 
       it "returns a TextField object" do
         object = described_class.generate(field, "foo", options)
@@ -14,8 +14,8 @@ describe PdfTempura::Render::Field do
       end
     end
 
-    context "when passing a diffrent field" do
-      let(:field) { PdfTempura::Document::Field::Base.new("foo", [0,0], [0,0], type: "stars") }
+    context "when passing a different field" do
+      let(:field) { double(:different_field, type: "different")}
 
       it "raises an ArgumentError" do
         expect {
