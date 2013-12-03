@@ -13,7 +13,7 @@ module PdfTempura
 
       def render(pdf)
         pdf.fill_color = "000000"
-        pdf.font @field.font_name, style: pdf_style
+        pdf.font @field.font_name, style: font_style
         field_bounds_box(pdf) do
           padding_bounds_box(pdf) do
             pdf.text_box @value.to_s, valign: :center, align: @field.alignment.to_sym, single_line: !@field.multi_line?, overflow: :shrink_to_fit, size: @field.font_size
@@ -24,7 +24,7 @@ module PdfTempura
 
       private
 
-      def pdf_style
+      def font_style
         if @field.bold? && @field.italic?
           :bold_italic
         elsif @field.bold?
