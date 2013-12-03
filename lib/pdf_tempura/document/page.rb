@@ -17,8 +17,15 @@ module PdfTempura
       self.number == other.number
     end
 
-    def field(*args)
-      fields << Document::Field::Base.new(*args)
+    def field(name, coordinates, dimensions, options = {})
+      type = options[:type] || Document::Field::DEFAULT_TYPE
+
+      case type
+      when "text"
+        fields << Document::TextField.new(name, coordinates, dimensions, options)
+      else
+        raise ArgumentError, "Invalid field type '#{type}'."
+      end
     end
 
     def data

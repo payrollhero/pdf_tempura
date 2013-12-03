@@ -4,9 +4,9 @@ describe PdfTempura::Render::FieldDataMapper do
 
   let(:fields) do
     [
-      PdfTempura::Document::Field::Base.new("one", [0,0], [0,0]),
-      PdfTempura::Document::Field::Base.new("bar", [0,0], [0,0]),
-      PdfTempura::Document::Field::Base.new("baz", [0,0], [0,0]),
+      PdfTempura::Document::TextField.new("one", [0,0], [0,0]),
+      PdfTempura::Document::TextField.new("bar", [0,0], [0,0]),
+      PdfTempura::Document::TextField.new("baz", [0,0], [0,0]),
     ]
   end
 

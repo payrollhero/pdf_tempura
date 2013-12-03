@@ -8,7 +8,7 @@ module PdfTempura
     module ClassMethods
 
       def validations
-        @validations ||= {}
+        @validations ||= (superclass.respond_to?(:validations) ? superclass.validations.dup : {})
       end
 
       private
