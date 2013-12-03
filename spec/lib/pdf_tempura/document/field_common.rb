@@ -1,4 +1,4 @@
-shared_example "a document field" do
+shared_examples "a document field" do
 
   describe "method expectations" do
     it { should respond_to(:x) }

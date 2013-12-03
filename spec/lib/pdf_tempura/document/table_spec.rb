@@ -4,7 +4,7 @@ require_relative 'field_common'
 describe PdfTempura::Document::Table do
 
   context "interface test" do
-    subject { described_class.new("foo", [0,0], width: 100, number_of_rows: 10) }
+    subject { described_class.new("foo", [0,0], height: 100, number_of_rows: 10) }
     it_should_behave_like "a document field"
   end
 
@@ -15,11 +15,11 @@ describe PdfTempura::Document::Table do
     let(:options) { {} }
 
     describe "option validation" do
-      shared_example "failing option test" do
+      shared_examples "failing option test" do
         it "should complain" do
           expect {
             described_class.new(name, origin, options)
-          }.to raise_exception(ArgumentError, "Two of height, number_of_rows or row_height have to be passed in options")
+          }.to raise_exception(ArgumentError, "You must pass number_of_rows and either height or row_height")
         end
       end
 
@@ -41,17 +41,22 @@ describe PdfTempura::Document::Table do
     end
 
     context "valid options" do
-      let(:options) do
-        {
-          height: 100,
-          number_of_rows: 10,
-        }
-      end
-
-      example do
-        expect {
+      shared_examples "passing options" do
+        it "should not complain" do
+          expect {
           described_class.new(name, origin, options)
         }.not_to raise_exception
+        end
+      end
+      
+      context "height and number of rows" do
+        let(:options) {{ height: 100, number_of_rows: 10}}
+        it_should_behave_like "passing options"
+      end
+      
+      context "row_height and number of rows" do
+        let(:options) {{ row_height: 10, number_of_rows: 10}}
+        it_should_behave_like "passing options"
       end
     end
 
