@@ -1,24 +1,24 @@
-require_relative 'page/validation'
-
 module PdfTempura
-  class Page
-    include Validation
+  class Document::Page
+    include Document::Validation
 
     def initialize(page_number)
       @number = page_number
       @fields = []
 
-      validate_arguments
+      validate!
     end
 
     attr_reader :number, :fields
+
+    validates :number, type: Numeric
 
     def ==(other)
       self.number == other.number
     end
 
     def field(*args)
-      fields << Field.new(*args)
+      fields << Document::Field::Base.new(*args)
     end
 
     def data

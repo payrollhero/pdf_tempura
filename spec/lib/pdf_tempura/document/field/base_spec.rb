@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe PdfTempura::Field do
+describe PdfTempura::Document::Field::Base do
 
   let(:name){ :name }
   let(:coordinates){ [10, 20] }

@@ -57,3 +57,7 @@ module PdfTempura
 
   end
 end
+
+require_relative 'document/validation'
+require_relative 'document/page'
+require_relative 'document/field'

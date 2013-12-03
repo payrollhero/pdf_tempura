@@ -1,8 +1,6 @@
-require_relative 'field/validation'
-
 module PdfTempura
-  class Field
-    include Validation
+  class Document::Field::Base
+    include Document::Validation
 
     def initialize(name, coordinates, dimensions, options = {})
       @name = name.is_a?(Symbol) ? name.to_s : name
@@ -61,7 +59,6 @@ module PdfTempura
         raise ArgumentError, "Options must be a hash."
       end
     end
-
 
   end
 end

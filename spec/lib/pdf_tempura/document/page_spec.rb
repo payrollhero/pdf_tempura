@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe PdfTempura::Page do
+describe PdfTempura::Document::Page do
 
   subject{ described_class.new(100) }
 
@@ -13,7 +13,7 @@ describe PdfTempura::Page do
       it "raise an argument error" do
         expect{
           described_class.new("one")
-        }.to raise_error ArgumentError, "Page number must be a number."
+        }.to raise_error ArgumentError, "Number must be of type Numeric."
       end
     end
 
@@ -53,7 +53,7 @@ describe PdfTempura::Page do
     it "creates the correct field object" do
       subject.field(name, coordinates, dimensions)
       field = subject.fields.first
-      field.should be_a(PdfTempura::Field)
+      field.should be_a(PdfTempura::Document::Field::Base)
       field.name.should == "name"
       field.coordinates.should == [10, 20]
       field.dimensions.should == [200, 100]

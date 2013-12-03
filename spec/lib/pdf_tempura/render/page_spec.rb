@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe PdfTempura::Render::Page do
 
-  let(:page) { PdfTempura::Page.new(1) }
+  let(:page) { PdfTempura::Document::Page.new(1) }
   let(:data) { { } }
   let(:pdf) { Prawn::Document.new }
   let(:options) { {} }
@@ -34,7 +34,7 @@ describe PdfTempura::Render::Page do
     end
 
     let(:page) do
-      page = PdfTempura::Page.new(1)
+      page = PdfTempura::Document::Page.new(1)
       page.field "one", [0,0], [0,0]
       page.field "two", [0,0], [0,0]
       page

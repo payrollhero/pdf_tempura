@@ -64,7 +64,7 @@ describe PdfTempura::Document do
   end
 
   describe ".page" do
-    let(:page){ PdfTempura::Page.new(200) }
+    let(:page){ PdfTempura::Document::Page.new(200) }
 
     it "yield a page object" do
       expect{ |block|
@@ -73,7 +73,7 @@ describe PdfTempura::Document do
     end
 
     it "passed method calls on to the new page object" do
-      PdfTempura::Page.any_instance.should_receive(:fields)
+      PdfTempura::Document::Page.any_instance.should_receive(:fields)
 
       dummy_class.page(200) do
         fields

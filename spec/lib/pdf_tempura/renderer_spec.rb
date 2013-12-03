@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe PdfTempura::Renderer do
 
-  let(:page_1){ PdfTempura::Page.new(1) }
+  let(:page_1){ PdfTempura::Document::Page.new(1) }
   let(:pages){ [ page_1 ] }
   let(:options) { { debug: [] } }
 
@@ -45,7 +45,7 @@ describe PdfTempura::Renderer do
     end
 
     describe do
-      let(:page_2){ PdfTempura::Page.new(2) }
+      let(:page_2){ PdfTempura::Document::Page.new(2) }
       let(:pages){ [ page_1, page_2 ] }
       let(:render_page_1) { double(:render_page_1) }
       let(:render_page_2) { double(:render_page_2) }
@@ -58,9 +58,7 @@ describe PdfTempura::Renderer do
         render_page_2.should_receive(:render)
         subject.render{ |file|; }
       end
-
     end
-
   end
 
 end
