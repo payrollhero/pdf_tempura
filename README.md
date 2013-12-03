@@ -70,6 +70,24 @@ page 1 do
 end
 ```
 
+##### Checkbox fields
+You can specify a checkbox field using the `checkbox_field` method. It requires a name, an array of coordinates (x and y), and an array of dimensions (width and height).
+Coordinates and dimensions are numbers referencing PDF units, starting from bottom left.
+
+```ruby
+checkbox_field(name, coordinates, dimensions, options)
+```
+
+It also takes an options hash where you can set the following options:
+
+- **default_value**: True or false. The default value for the checkbox. Default is false.
+
+```ruby
+page 1 do
+  checkbox_field :send_me_snacks, [10, 20], [20, 20], { default_value: true }
+end
+```
+
 #### Specifying reusable groups
 
 If you have the same fields on multiple pages, you can use the `group` method to DRY your template.
