@@ -54,6 +54,7 @@ It also takes an options hash where you can set the following options:
 - **type**: "text", "checkbox" or "box-list".  Defines the type of the field and draws the appropriate type. A box-list will create a box field for each character of the passed text.  Default is "text".
 - **default_value**: The default value for the field. Default is nil.
 - **font_size**: A number in pixels (i.e. 13), or auto to change the font to fit the field size. Default is 10px.
+- **font_name**: The name of the font to use. Default: "Helvetica"
 - **italic**: True or false. Makes the text italic when set to true. Default to false.
 - **bold**: True or false. Makes the text bold when set to true. Default is false.
 - **alignment**: "left", "center" or "right". Aligns the text in the boundaries of the field. Default is "left".
