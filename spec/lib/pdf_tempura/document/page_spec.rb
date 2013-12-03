@@ -39,6 +39,22 @@ describe PdfTempura::Document::Page do
     end
   end
 
+  describe ".table" do
+
+    it "adds a table field to the field list" do
+      subject.fields.should == []
+      subject.table(:foo, [0,0], height: 100, number_of_rows: 10) { }
+      subject.fields.first.should be_a(Document::Table)
+    end
+
+    it "yields" do
+      expect { |b|
+        subject.table(:foo, [0,0], height: 100, number_of_rows: 10, &b)
+      }.to yield_control
+    end
+
+  end
+
   describe ".text_field" do
     let(:name){ :text_field }
     let(:coordinates){ [10, 20] }
