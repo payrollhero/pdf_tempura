@@ -95,7 +95,7 @@ describe PdfTempura::Document::Table do
       subject.columns.first.type.should == "spacer"
     end
   end
-
+  
   describe "#cells" do
   end
 
