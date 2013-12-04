@@ -44,7 +44,7 @@ describe PdfTempura::Document::Page do
     it "adds a table field to the field list" do
       subject.fields.should == []
       subject.table(:foo, [0,0], height: 100, number_of_rows: 10) { }
-      subject.fields.first.should be_a(Document::Table)
+      subject.fields.first.should be_a(PdfTempura::Document::Table)
     end
 
     it "yields" do

@@ -13,6 +13,7 @@ describe PdfTempura::Document::Table do
     let(:name) { :table }
     let(:origin) { [0,0] }
     let(:options) { {} }
+    let(:valid_options) { {height: 100, row_height: 10, number_of_rows: 10}}
 
     describe "option validation" do
       shared_examples "failing option test" do
@@ -47,6 +48,11 @@ describe PdfTempura::Document::Table do
           described_class.new(name, origin, options)
         }.not_to raise_exception
         end
+        it "should be 100 tall with 10 row_height" do
+          subject =  described_class.new(name,origin,options)
+          subject.height.should == 100
+          subject.row_height.should == 10
+        end
       end
       
       context "height and number of rows" do
@@ -60,12 +66,34 @@ describe PdfTempura::Document::Table do
       end
     end
 
+    
+    describe "yielding" do
+      it "should yield" do
+        expect { |b| described_class.new(name,origin,valid_options,&b)}.to yield_control
+      end
+    end
   end
 
   describe "#column"  do
+    let(:options) { {height: 100, number_of_rows: 10} }
+    let(:subject) { described_class.new(:table,[0,0],options)}
+    
+    it "should add a column to the table" do
+      subject.column(:pin, 50, type: "text")
+      subject.columns.count.should == 1
+      subject.columns.first.name.should == :pin
+    end
   end
 
   describe "#spacer" do
+    let(:options) { {height: 100, number_of_rows: 10} }
+    let(:subject) { described_class.new(:table,[0,0],options)}
+    
+    it "should add a spacer to the table" do
+      subject.spacer(5)
+      subject.columns.count.should == 1
+      subject.columns.first.type.should == "spacer"
+    end
   end
 
   describe "#cells" do

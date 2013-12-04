@@ -108,14 +108,14 @@ class MyDoc < PdfTempura::Document
 end
 ```
 
-The table construct allows the creation of a repating set of fields.
+The table construct allows the creation of a repeating set of fields.
 
 The `table` call takes a name, the x,y position of the top-left corner
 of the table, as well as any 2 of height, number_of_rows or row_height.
 
 Inside the table block, you define columns or spacers.
 
-Spacer only takes one paramer, its width.
+Spacer only takes one parameter, its width.
 
 Column mimicks 'field', except you only specify the width of the column,
 the rest is figured out by the table.
