@@ -50,7 +50,7 @@ module PdfTempura
       end
       
       unless @row_height
-        @row_height = @height / @row_count
+        @row_height = @height.to_f / @row_count.to_f
       end
       
       @padding = options[:padding] || [0,0,0,0]

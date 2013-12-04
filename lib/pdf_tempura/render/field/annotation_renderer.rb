@@ -13,12 +13,16 @@ module PdfTempura
         render_text(pdf)
       end
 
-      private
+      protected
+      
+      def transparency
+        0.80
+      end
 
       def render_boxes(pdf)
         pdf.line_width = 0.5
 
-        pdf.transparent 0.75 do
+        pdf.transparent transparency do
           field_bounds_box(pdf) do
             pdf.stroke_color = "CCCC33"
             pdf.stroke_bounds

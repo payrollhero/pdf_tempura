@@ -27,7 +27,7 @@ module PdfTempura
           y-= @table.row_height
         end
         
-        Field::AnnotationRenderer.new(@table).render(pdf) if draw_outlines?
+        Field::TableAnnotationRenderer.new(@table).render(pdf) if draw_outlines?
       end
 
     end
@@ -35,3 +35,4 @@ module PdfTempura
 end
 
 require_relative 'page/grid_renderer'
+require_relative 'field/table_annotation_renderer'
