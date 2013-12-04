@@ -1,7 +1,7 @@
 module PdfTempura
   
   class Document::Table
-    attr_accessor :width,:height,:x,:y,:columns,:name,:row_height
+    attr_accessor :height,:x,:y,:columns,:name,:row_height,:padding,:cell_padding
     
     
     def initialize(name,origin,options = {},&block)
@@ -14,12 +14,24 @@ module PdfTempura
       instance_eval(&block) if block_given?
     end
     
-    def column(name,width,options)
-      @columns << Document::Table::Column.new(name,width,options)
+    def text_column(name,width,options = {})
+      @columns << Document::Table::TextColumn.new(name,width,row_height,options)
+    end
+    
+    def checkbox_column(name,width,options = {})
+      @columns << Document::Table::CheckboxColumn.new(name,width,row_height,options)
     end
     
     def spacer(width)
-      @columns << Document::Table::Spacer.new(width)
+      @columns << Document::Table::Spacer.new(width,row_height)
+    end
+    
+    def width
+      if @columns.empty?
+        0
+      else
+        @columns.map(&:width).inject(:+) + @cell_padding*(@columns.count-1)
+      end
     end
     
     private
@@ -40,6 +52,9 @@ module PdfTempura
       unless @row_height
         @row_height = @height / @row_count
       end
+      
+      @padding = options[:padding] || [0,0,0,0]
+      @cell_padding = options[:cell_padding] || 0
     end
   end
   
@@ -47,4 +62,6 @@ module PdfTempura
 end
 
 require_relative 'table/column'
+require_relative 'table/text_column'
+require_relative 'table/checkbox_column'
 require_relative 'table/spacer'

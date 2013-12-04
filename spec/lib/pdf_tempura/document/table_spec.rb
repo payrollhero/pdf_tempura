@@ -5,7 +5,7 @@ describe PdfTempura::Document::Table do
 
   context "interface test" do
     subject { described_class.new("foo", [0,0], height: 100, number_of_rows: 10) }
-    it_should_behave_like "a document field"
+    it_should_behave_like "a document field methods"
   end
 
   describe "init" do
@@ -74,14 +74,25 @@ describe PdfTempura::Document::Table do
     end
   end
 
-  describe "#column"  do
+  describe "#text_column"  do
     let(:options) { {height: 100, number_of_rows: 10} }
     let(:subject) { described_class.new(:table,[0,0],options)}
     
     it "should add a column to the table" do
-      subject.column(:pin, 50, type: "text")
+      subject.text_column(:pin, 50)
       subject.columns.count.should == 1
-      subject.columns.first.name.should == :pin
+      subject.columns.first.should be_kind_of(PdfTempura::Document::Table::TextColumn)
+    end
+  end
+  
+  describe "#checkbox_column"  do
+    let(:options) { {height: 100, number_of_rows: 10} }
+    let(:subject) { described_class.new(:table,[0,0],options)}
+    
+    it "should add a column to the table" do
+      subject.checkbox_column(:pin, 50)
+      subject.columns.count.should == 1
+      subject.columns.first.should be_kind_of(PdfTempura::Document::Table::CheckboxColumn)
     end
   end
 
@@ -92,26 +103,33 @@ describe PdfTempura::Document::Table do
     it "should add a spacer to the table" do
       subject.spacer(5)
       subject.columns.count.should == 1
-      subject.columns.first.type.should == "spacer"
+      subject.columns.first.should be_kind_of(PdfTempura::Document::Table::Spacer)
     end
-  end
-  
-  describe "#cells" do
-  end
-
-  describe "#name" do
-  end
-
-  describe "#x" do
-  end
-
-  describe "#y" do
   end
 
   describe "#width" do
-  end
-
-  describe "#height" do
+    let(:options) { {height: 100, number_of_rows: 10} }
+    
+    it "should calculate width correctly" do
+      subject = described_class.new(:table,[0,0],options)
+      subject.text_column :a,10
+      subject.width.should == 10
+      subject.text_column :b,15
+      subject.width.should == 25
+      subject.spacer 5
+      subject.width.should == 30
+    end
+    
+    it "should calculate width correctly with cell padding" do
+      options.merge!(:cell_padding => 2)
+      subject = described_class.new(:table,[0,0],options)
+      subject.text_column :a,10
+      subject.width.should == 10
+      subject.text_column :b,15
+      subject.width.should == 27
+      subject.spacer 5
+      subject.width.should == 34
+    end
   end
 
 end

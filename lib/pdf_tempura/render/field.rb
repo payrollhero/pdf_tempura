@@ -1,6 +1,6 @@
 module PdfTempura
   module Render
-    class Field
+    module Field
 
       def self.generate(field, value, options)
         case field

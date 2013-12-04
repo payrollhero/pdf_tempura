@@ -11,7 +11,12 @@ class MyPdf < PdfTempura::Document
   end
 
   page 2 do
-    text_field "bar", [50,680], [40,35]
+    table "table", [57,688], number_of_rows: 16, row_height: 35,height: 550,cell_padding: 1 do
+      text_column "id",42, alignment: "center"
+      text_column "name",232, padding: [5,5,5,5]
+      text_column "email",224, padding: [5,5,5,5]
+    end
+    text_field "form_id", [122,60], [125,27], padding: [5,5,5,5]
   end
 
 end

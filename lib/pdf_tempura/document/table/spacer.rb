@@ -1,14 +1,11 @@
 module PdfTempura
-  class Document::Table::Spacer
-    attr_reader :width
-    
-    def initialize(width)
-      @width = width
+  class Document::Table::Spacer < Document::Table::Column
+    def initialize(width,height)
+      super(nil,width,height)
     end
     
-    def type
-      "spacer"
+    def render(pdf,coords,value,render_options = {})
+      #this area intentionally left blank
     end
   end
-  
 end

@@ -44,11 +44,7 @@ describe PdfTempura::Document::Page do
     it "adds a table field to the field list" do
       subject.fields.should == []
       subject.table(:foo, [0,0], height: 100, number_of_rows: 10) { }
-<<<<<<< HEAD
       subject.fields.first.should be_a(PdfTempura::Document::Table)
-=======
-      subject.fields.first.should be_a(Document::Table)
->>>>>>> a510801ba688e1f3f6c89dbde85150f7d153915b
     end
 
     it "yields" do
@@ -59,13 +55,8 @@ describe PdfTempura::Document::Page do
 
   end
 
-<<<<<<< HEAD
   describe ".text_field" do
     let(:name){ :text_field }
-=======
-  describe ".field" do
-    let(:name){ :name }
->>>>>>> a510801ba688e1f3f6c89dbde85150f7d153915b
     let(:coordinates){ [10, 20] }
     let(:dimensions){ [200, 100] }
 

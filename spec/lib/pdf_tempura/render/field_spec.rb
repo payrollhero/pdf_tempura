@@ -18,7 +18,7 @@ describe PdfTempura::Render::Field do
       let(:field) { PdfTempura::Document::Table.new("foo", [0,0], height: 100, number_of_rows: 10) }
 
       it "returns a Table object" do
-        object = described_class.generate(field, "foo", options)
+        object = described_class.generate(field,[], options)
         object.should be_kind_of(PdfTempura::Render::Table)
       end
     end

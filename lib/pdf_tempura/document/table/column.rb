@@ -1,13 +1,16 @@
 module PdfTempura
   class Document::Table::Column
-    attr_reader :name,:width,:type
+    attr_reader :name,:width,:options,:height
     
-    def initialize(name,width,options = {})
+    def initialize(name,width,height,options = {})
       @name = name
       @width = width
-      @type = options[:type]
-      
-      raise ArgumentError.new("You must specify a :type for this column.") unless @type
+      @height = height
+      @options = options
+    end
+    
+    def render(pdf,coords,value_hash,render_options = {})
+      render_at(pdf,coords,value_hash[@name],render_options)
     end
   end
   

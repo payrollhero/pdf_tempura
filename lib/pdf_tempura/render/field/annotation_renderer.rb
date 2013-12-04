@@ -1,6 +1,6 @@
 module PdfTempura
   module Render
-    class TextField::AnnotationRenderer
+    class Field::AnnotationRenderer
 
       include FieldBounds
 
