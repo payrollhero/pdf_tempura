@@ -12,17 +12,17 @@ module PdfTempura
       end
 
       def render(pdf)
-        pdf.fill_color = "000000"
-        pdf.font @field.font_name, style: font_style
-        field_bounds_box(pdf) do
-          padding_bounds_box(pdf) do
-            pdf.text_box @value.to_s, valign: :center, align: @field.alignment.to_sym, single_line: !@field.multi_line?, overflow: :shrink_to_fit, size: @field.font_size
-          end
-        end
-        Field::AnnotationRenderer.new(@field).render(pdf) if draw_outlines?
+        set_styling(pdf)
+        render_field(pdf)
+        render_annotation(pdf) if draw_outlines?
       end
 
       private
+
+      def set_styling(pdf)
+        pdf.fill_color = "000000"
+        pdf.font @field.font_name, style: font_style
+      end
 
       def font_style
         if @field.bold? && @field.italic?
@@ -34,6 +34,27 @@ module PdfTempura
         else
           :normal
         end
+      end
+
+      def render_field(pdf)
+        field_bounds_box(pdf) do
+          padding_bounds_box(pdf) do
+            pdf.text_box(@value.to_s, field_options)
+          end
+        end
+      end
+
+      def field_options
+        {
+          valign: :center,
+          align: @field.alignment.to_sym,
+          single_line: !@field.multi_line?,
+          overflow: :shrink_to_fit, size: @field.font_size
+        }
+      end
+
+      def render_annotation(pdf)
+        Field::AnnotationRenderer.new(@field).render(pdf)
       end
 
     end
