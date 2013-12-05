@@ -1,24 +1,8 @@
 module PdfTempura
   module Render
-    class TextField
+    class TextField < Field
 
-      include OptionAccess
-      include FieldBounds
-
-      def initialize(field, value, options = {})
-        @field = field
-        @value = value
-        @options = options
-      end
-
-      def render(pdf)
-        set_styling(pdf)
-        render_field(pdf)
-        render_annotation(pdf) if draw_outlines?
-      end
-
-      protected
-
+      private
       def set_styling(pdf)
         pdf.fill_color = "000000"
         pdf.font @field.font_name, style: font_style

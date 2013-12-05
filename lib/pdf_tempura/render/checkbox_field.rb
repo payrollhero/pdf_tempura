@@ -1,7 +1,7 @@
 module PdfTempura
   module Render
     class CheckboxField < Field
-      protected
+      private
       def set_styling(pdf)
         pdf.fill_color = "000000"
         pdf.font "Courier", style: :normal
@@ -20,7 +20,6 @@ module PdfTempura
       def render_annotation(pdf)
         Field::CheckboxAnnotationRenderer.new(@field).render(pdf)
       end
-    
     
     end
   end

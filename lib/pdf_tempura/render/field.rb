@@ -1,6 +1,9 @@
 module PdfTempura
   module Render
     class Field
+      
+      include OptionAccess
+      include FieldBounds
 
       def self.generate(field, value, options)
         case field
@@ -14,9 +17,6 @@ module PdfTempura
           raise ArgumentError, "don't know how to handle field kind: #{field.class}"
         end
       end
-      
-      include OptionAccess
-      include FieldBounds
 
       def initialize(field, value, options = {})
         @field = field
