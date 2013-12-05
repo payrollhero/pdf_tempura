@@ -1,7 +1,7 @@
 module PdfTempura
   module Render
     class Field::CheckboxAnnotationRenderer < Field::AnnotationRenderer
-      protected
+      private
       
       def coordinate_offsets
         return {
