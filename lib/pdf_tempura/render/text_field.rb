@@ -23,10 +23,6 @@ module PdfTempura
       end
 
       protected
-      
-      def padding
-        @field.padding
-      end
 
       def font_style
         if @field.bold? && @field.italic?
