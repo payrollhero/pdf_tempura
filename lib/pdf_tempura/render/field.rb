@@ -4,6 +4,8 @@ module PdfTempura
 
       def self.generate(field, value, options)
         case field
+        when Document::CheckboxField
+          CheckboxField.new(field,value,options)
         when Document::TextField
           TextField.new(field, value, options)
         when Document::Table

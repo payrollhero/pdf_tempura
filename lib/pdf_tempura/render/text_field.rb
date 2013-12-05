@@ -22,7 +22,11 @@ module PdfTempura
         Field::AnnotationRenderer.new(@field).render(pdf) if draw_outlines?
       end
 
-      private
+      protected
+      
+      def padding
+        @field.padding
+      end
 
       def font_style
         if @field.bold? && @field.italic?

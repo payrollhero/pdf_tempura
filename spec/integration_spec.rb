@@ -10,6 +10,7 @@ describe PdfTempura do
         1 => {
           "name" => (["John Doe"] * 10).join(' '),
           "email" => "john@doe.com",
+          "accept" => true,
           "reason" => "
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ultrices tortor leo. Nunc convallis erat vitae lorem elementum, vel blandit odio scelerisque. Maecenas a cursus nunc. Duis lectus velit, porta eget rhoncus ut, posuere eu nisl. Maecenas imperdiet eget sem sit amet pellentesque. Mauris eu sodales est. Mauris quis quam eu nisl luctus scelerisque sit amet faucibus urna. Morbi sagittis, ligula quis ullamcorper tempus, ante mi gravida urna, ac facilisis tortor nisl ac turpis.
 

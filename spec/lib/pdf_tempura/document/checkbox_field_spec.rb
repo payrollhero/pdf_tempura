@@ -8,7 +8,8 @@ describe PdfTempura::Document::CheckboxField do
   let(:coordinates){ [10, 20] }
   let(:dimensions){ [10, 10] }
   let(:default_value){ true }
-  let(:options){ { default_value: default_value} }
+  let(:padding){ [1,1,1,1]}
+  let(:options){ { default_value: default_value, padding: padding} }
 
   subject{ described_class.new(name, coordinates, dimensions, options) }
 
@@ -35,6 +36,16 @@ describe PdfTempura::Document::CheckboxField do
           expect{
             described_class.new(name, coordinates, dimensions, options)
           }.to raise_error ArgumentError, "Default_value must be one of the following values: true, false."
+        end
+      end
+      
+      context "padding" do
+        let(:padding){[3,2,1]}
+        
+        it "throws an error" do
+          expect{
+            described_class.new(name, coordinates, dimensions, options)
+          }.to raise_error ArgumentError, "Padding must contain 4 values."
         end
       end
     end
