@@ -9,7 +9,9 @@ describe PdfTempura::Render::Field::AnnotationRenderer do
 
   describe "#render" do
     example do
-      subject.render(pdf)
+      expect{
+        subject.render(pdf)
+      }.to_not raise_error
     end
   end
 
