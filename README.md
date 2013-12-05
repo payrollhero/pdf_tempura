@@ -110,6 +110,13 @@ end
 
 The table construct allows the creation of a repeating set of fields.
 
+Table options:
+
+- **height**: Optional, height of the overall table.
+- **number_of_rows**: The number of rows in the table, required
+- **row_height**: The height of each row
+- **cell_padding**: Padding between each cell
+
 The `table` call takes a name, the x,y position of the top-left corner
 of the table, the number of rows, either row_height or height (or both), and
 cell padding.
