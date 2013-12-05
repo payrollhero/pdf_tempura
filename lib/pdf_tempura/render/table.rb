@@ -8,7 +8,7 @@ module PdfTempura
         @table = table
         @options = options
         @values = values || []
-        
+
         unless @values.respond_to?(:each)
           raise ArgumentError.new("Expected value passed to table to be an array but it isn't.")
         end
@@ -16,10 +16,16 @@ module PdfTempura
 
       def render(pdf)
         @table.fields_for(@values) do |field,value|
-          Render::Field.generate(field,value,@options).render(pdf)
+          Render::Field.generate(field, value, @options).render(pdf)
         end
-        
-        Field::TableAnnotationRenderer.new(@table).render(pdf) if draw_outlines?
+
+        render_annotation(pdf) if draw_outlines?
+      end
+
+      private
+
+      def render_annotation(pdf)
+        Field::TableAnnotationRenderer.new(@table).render(pdf)
       end
 
     end

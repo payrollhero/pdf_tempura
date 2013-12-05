@@ -3,29 +3,39 @@ module PdfTempura
     class Page::GridRenderer
 
       def render(pdf)
-
-        pdf.stroke_color = "000000"
-        pdf.fill_color = "000000"
-        pdf.line_width = 0.5
-        pdf.transparent(0.125) do
-          line_loop(pdf.bounds.width, 25) do |x|
-            vertical_line_with_label pdf, x
-          end
-          line_loop(pdf.bounds.height, 25) do |y|
-            horizontal_line_with_label pdf, y
-          end
-        end
-
+        set_styling(pdf)
+        render_grid(pdf)
       end
 
       private
 
-      def line_loop(max, increment)
-        n = 0
-        while n <= max
-          yield(n)
-          n += increment
+      def set_styling(pdf)
+        pdf.stroke_color = "000000"
+        pdf.fill_color = "000000"
+        pdf.line_width = 0.5
+      end
+
+      def render_grid(pdf)
+        pdf.transparent(0.125) do
+          render_vertical_lines(pdf)
+          render_horizontal_lines(pdf)
         end
+      end
+
+      def render_vertical_lines(pdf)
+        line_loop(pdf.bounds.width, 25) do |x|
+          vertical_line_with_label pdf, x
+        end
+      end
+
+      def render_horizontal_lines(pdf)
+        line_loop(pdf.bounds.height, 25) do |y|
+          horizontal_line_with_label pdf, y
+        end
+      end
+
+      def line_loop(max, increment)
+        (0 .. max).step(increment){ |n| yield(n) }
       end
 
       def vertical_line_with_label(pdf, x)

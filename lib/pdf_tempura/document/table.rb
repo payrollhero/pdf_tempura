@@ -1,83 +1,83 @@
 module PdfTempura
-  
   class Document::Table
-    attr_accessor :height,:x,:y,:columns,:name,:row_height,:padding,:cell_padding
 
-    def initialize(name,origin,options = {},&block)
+    def initialize(name, origin, options = {}, &block)
       @name = name
-      (@x,@y) = origin
+      (@x, @y) = origin
       @options = options
       @columns = []
-      
+
       load_options(options)
       instance_eval(&block) if block_given?
     end
-    
-    def text_column(name,width,options = {})
-      @columns << Document::Table::TextColumn.new(name,width,row_height,options)
-    end
-    
-    def checkbox_column(name,width,options = {})
-      @columns << Document::Table::CheckboxColumn.new(name,width,row_height,options)
-    end
-    
-    def spacer(width)
-      @columns << Document::Table::Spacer.new(width,row_height)
-    end
-    
+
+    attr_accessor :x, :y, :columns, :name, :row_count, :padding, :cell_padding
+
     def width
-      if @columns.empty?
-        0
-      else
-        @columns.map(&:width).inject(:+) + @cell_padding*(@columns.count-1)
+      table_width + padding_width
+    end
+
+    def height
+      @height ||= row_height * row_count
+    end
+
+    def row_height
+      @row_height ||= height.to_f / row_count.to_f
+    end
+
+    def text_column(name,width,options = {})
+      columns << Document::Table::TextColumn.new(name,width,row_height,options)
+    end
+
+    def checkbox_column(name,width,options = {})
+      columns << Document::Table::CheckboxColumn.new(name,width,row_height,options)
+    end
+
+    def spacer(width)
+      columns << Document::Table::Spacer.new(width,row_height)
+    end
+
+    def fields_for(values, &block)
+      values.inject(self.y) do |y, value_hash|
+        generate_columns(y, value_hash, &block)
+        y - row_height
       end
     end
-    
-    def fields_for(values)
-      y = self.y
-      
-      values.each do |value_hash|
-        x = self.x
-        columns.each do |column|
-          if column.generates_field?
-            yield(column.field_at([x,y]),value_hash[column.name])
-          end
-          x += column.width + cell_padding
-        end
-        
-        y -= row_height
-      end
-    end
-    
+
     private
-    
-    def validate_heights
-      unless @row_count && (@row_height || @height)
+
+    def generate_columns(y, values)
+      columns.inject(self.x) do |x, column|
+        yield column.field_at([x,y]), values[column.name] if column.generates_field?
+        x + column.width + cell_padding
+      end
+    end
+
+    def table_width
+      columns.inject(0){ |sum, column| sum + column.width }
+    end
+
+    def padding_width
+      (columns.any?) ? cell_padding * (columns.count - 1) : 0
+    end
+
+    def validate_height
+      unless row_count && (@row_height || @height)
         raise ArgumentError.new("You must pass number_of_rows and either height or row_height")
       end
-      
-      unless @height
-        @height = @row_height * @row_count
-      end
-      
-      unless @row_height
-        @row_height = @height.to_f / @row_count.to_f
-      end
     end
-    
+
     def load_options(options)
       @height = options[:height]
       @row_height = options[:row_height]
       @row_count = options[:number_of_rows]
-      
-      validate_heights
-      
       @padding = options[:padding] || [0,0,0,0]
       @cell_padding = options[:cell_padding] || 0
+
+      validate_height
     end
+
   end
-  
-  
 end
 
 require_relative 'table/column'

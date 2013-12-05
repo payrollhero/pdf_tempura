@@ -45,28 +45,29 @@ describe PdfTempura::Document::Table do
       shared_examples "passing options" do
         it "should not complain" do
           expect {
-          described_class.new(name, origin, options)
-        }.not_to raise_exception
+            described_class.new(name, origin, options)
+          }.not_to raise_exception
         end
+
         it "should be 100 tall with 10 row_height" do
-          subject =  described_class.new(name,origin,options)
+          subject = described_class.new(name,origin,options)
           subject.height.should == 100
           subject.row_height.should == 10
         end
       end
-      
+
       context "height and number of rows" do
         let(:options) {{ height: 100, number_of_rows: 10}}
         it_should_behave_like "passing options"
       end
-      
+
       context "row_height and number of rows" do
         let(:options) {{ row_height: 10, number_of_rows: 10}}
         it_should_behave_like "passing options"
       end
     end
 
-    
+
     describe "yielding" do
       it "should yield" do
         expect { |b| described_class.new(name,origin,valid_options,&b)}.to yield_control
@@ -77,18 +78,18 @@ describe PdfTempura::Document::Table do
   describe "#text_column"  do
     let(:options) { {height: 100, number_of_rows: 10} }
     let(:subject) { described_class.new(:table,[0,0],options)}
-    
+
     it "should add a column to the table" do
       subject.text_column(:pin, 50)
       subject.columns.count.should == 1
       subject.columns.first.should be_kind_of(PdfTempura::Document::Table::TextColumn)
     end
   end
-  
+
   describe "#checkbox_column"  do
     let(:options) { {height: 100, number_of_rows: 10} }
     let(:subject) { described_class.new(:table,[0,0],options)}
-    
+
     it "should add a column to the table" do
       subject.checkbox_column(:pin, 50)
       subject.columns.count.should == 1
@@ -99,7 +100,7 @@ describe PdfTempura::Document::Table do
   describe "#spacer" do
     let(:options) { {height: 100, number_of_rows: 10} }
     let(:subject) { described_class.new(:table,[0,0],options)}
-    
+
     it "should add a spacer to the table" do
       subject.spacer(5)
       subject.columns.count.should == 1
@@ -109,10 +110,10 @@ describe PdfTempura::Document::Table do
 
   describe "#width" do
     subject { described_class.new(:table,[0,0],options) }
-    
+
     context "no padding" do
       let(:options) { {height: 100, number_of_rows: 10} }
-      
+
       it "calculates width correctly" do
         subject.text_column :a,10
         subject.width.should == 10
@@ -122,10 +123,10 @@ describe PdfTempura::Document::Table do
         subject.width.should == 30
       end
     end
-    
+
     context "with padding" do
       let(:options) { {height: 100, number_of_rows: 10, cell_padding: 2} }
-      
+
       it "calculates width correctly" do
         subject.text_column :a,10
         subject.width.should == 10
@@ -134,8 +135,8 @@ describe PdfTempura::Document::Table do
         subject.spacer 5
         subject.width.should == 34
       end
-      
+
     end
   end
 end
-    
+

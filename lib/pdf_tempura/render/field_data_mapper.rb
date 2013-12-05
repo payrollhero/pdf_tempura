@@ -4,9 +4,9 @@ module PdfTempura
 
       def self.map(fields, data)
         data ||= {}
-        fields.inject({}) { |memo,field|
+
+        fields.each_with_object({}){ |field, memo|
           memo[field] = data[field.name]
-          memo
         }
       end
 

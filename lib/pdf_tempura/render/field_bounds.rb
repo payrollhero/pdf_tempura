@@ -15,6 +15,7 @@ module PdfTempura
         y = pdf.bounds.height - @field.padding[0]
         width = pdf.bounds.width - @field.padding[1] - @field.padding[3]
         height = pdf.bounds.height - @field.padding[0] - @field.padding[2]
+
         pdf.bounding_box([x,y], width: width, height: height) do
           yield
         end

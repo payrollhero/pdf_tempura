@@ -3,6 +3,7 @@ module PdfTempura
     class TextField < Field
 
       private
+
       def set_styling(pdf)
         pdf.fill_color = "000000"
         pdf.font @field.font_name, style: font_style

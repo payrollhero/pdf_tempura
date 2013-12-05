@@ -1,7 +1,6 @@
 module PdfTempura
   module Render
     class Field
-      
       include OptionAccess
       include FieldBounds
 
