@@ -1,6 +1,6 @@
 module PdfTempura
   module Render
-    module Field
+    class Field
 
       def self.generate(field, value, options)
         case field
@@ -13,6 +13,21 @@ module PdfTempura
         else
           raise ArgumentError, "don't know how to handle field kind: #{field.class}"
         end
+      end
+      
+      include OptionAccess
+      include FieldBounds
+
+      def initialize(field, value, options = {})
+        @field = field
+        @value = value
+        @options = options
+      end
+
+      def render(pdf)
+        set_styling(pdf)
+        render_field(pdf)
+        render_annotation(pdf) if draw_outlines?
       end
 
     end

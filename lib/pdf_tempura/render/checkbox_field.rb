@@ -1,10 +1,13 @@
 module PdfTempura
   module Render
-    class CheckboxField < TextField
-
-      def render(pdf)
+    class CheckboxField < Field
+      protected
+      def set_styling(pdf)
         pdf.fill_color = "000000"
         pdf.font "Courier", style: :normal
+      end
+
+      def render_field(pdf)
         field_bounds_box(pdf) do
           padding_bounds_box(pdf) do
             if @value
@@ -12,9 +15,13 @@ module PdfTempura
             end
           end
         end
-        Field::CheckboxAnnotationRenderer.new(@field).render(pdf) if draw_outlines?
       end
 
+      def render_annotation(pdf)
+        Field::CheckboxAnnotationRenderer.new(@field).render(pdf)
+      end
+    
+    
     end
   end
 end
