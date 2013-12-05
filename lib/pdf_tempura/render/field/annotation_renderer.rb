@@ -53,7 +53,8 @@ module PdfTempura
             at: [off[0], @field.height+off[1]], 
             width: @field.width-2, 
             height: @field.height-2, 
-            valign: :top
+            valign: :top,
+            single_line: true
       end
       
       def render_label(pdf)
@@ -63,7 +64,8 @@ module PdfTempura
             width: @field.width-2, 
             height: @field.height-2, 
             valign: :bottom, 
-            align: :right
+            align: :right,
+            single_line: true
       end
       
       def render_text(pdf)
