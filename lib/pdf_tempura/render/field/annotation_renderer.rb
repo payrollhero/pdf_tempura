@@ -39,17 +39,42 @@ module PdfTempura
           end
         end
       end
-
+      
+      def coordinate_offsets
+        return {
+          xy: [1,-1],
+          label: [1,-1]
+        }
+      end
+      
+      def render_xy(pdf)
+        off = coordinate_offsets[:xy]
+        pdf.text_box "x: #{@field.x} y: #{@field.y} w: #{@field.width} h: #{@field.height}", 
+            at: [off[0], @field.height+off[1]], 
+            width: @field.width-2, 
+            height: @field.height-2, 
+            valign: :top
+      end
+      
+      def render_label(pdf)
+        off = coordinate_offsets[:label]
+        pdf.text_box "#{@field.name}", 
+            at: [off[0], @field.height+off[1]], 
+            width: @field.width-2, 
+            height: @field.height-2, 
+            valign: :bottom, 
+            align: :right
+      end
+      
       def render_text(pdf)
         pdf.font_size = 7
         pdf.fill_color = "000066"
-
         field_bounds_box(pdf) do
-          pdf.text_box "x: #{@field.x} y: #{@field.y} w: #{@field.width} h: #{@field.height}", at: [0+1, @field.height-1], width: @field.width-2, height: @field.height-2, valign: :top
-          pdf.text_box "#{@field.name}", at: [0+1, @field.height-1], width: @field.width-2, height: @field.height-2, valign: :bottom, align: :right
+          render_xy(pdf)
+          render_label(pdf)
         end
       end
-
+      
     end
   end
 end
