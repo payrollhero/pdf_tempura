@@ -15,16 +15,8 @@ module PdfTempura
       end
 
       def render(pdf)
-        y = @table.y
-        
-        @values.each do |value_hash|
-          x = @table.x
-          @table.columns.each do |column|
-            column.render(pdf,[x,y],value_hash,@options)
-            x+= column.width + @table.cell_padding
-          end
-          
-          y-= @table.row_height
+        @table.fields_for(@values) do |field,value|
+          Render::Field.generate(field,value,@options).render(pdf)
         end
         
         Field::TableAnnotationRenderer.new(@table).render(pdf) if draw_outlines?

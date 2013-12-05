@@ -4,8 +4,8 @@ module PdfTempura
       super(nil,width,height)
     end
     
-    def render(pdf,coords,value,render_options = {})
-      #this area intentionally left blank
+    def generates_field?
+      false
     end
   end
 end

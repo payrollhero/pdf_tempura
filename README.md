@@ -99,7 +99,7 @@ end
 ```ruby
 class MyDoc < PdfTempura::Document
   page 1 do
-    table :stuff, [500,50], height: 300, number_of_rows: 10, row_height: 25 do
+    table :stuff, [500,50], height: 300, number_of_rows: 10, row_height: 25, cell_padding: 1 do
       text_column :pin, 50
       spacer 5
       checkbox_column :last_name, 100
@@ -111,10 +111,11 @@ end
 The table construct allows the creation of a repeating set of fields.
 
 The `table` call takes a name, the x,y position of the top-left corner
-of the table, as well as any 2 of height, number_of_rows or row_height.
+of the table, the number of rows, either row_height or height (or both), and
+cell padding.
 
 Inside the table block, you define columns or spacers.  Columns themselves have
-amalgomous names to those you may use in "page" to describe fields.  Use
+amalgamous names to those you may use in "page" to describe fields.  Use
 "text_column" for a column containing text, "checkbox_column" for a cell
 containing a checkbox.
 

@@ -108,28 +108,34 @@ describe PdfTempura::Document::Table do
   end
 
   describe "#width" do
-    let(:options) { {height: 100, number_of_rows: 10} }
+    subject { described_class.new(:table,[0,0],options) }
     
-    it "should calculate width correctly" do
-      subject = described_class.new(:table,[0,0],options)
-      subject.text_column :a,10
-      subject.width.should == 10
-      subject.text_column :b,15
-      subject.width.should == 25
-      subject.spacer 5
-      subject.width.should == 30
+    context "no padding" do
+      let(:options) { {height: 100, number_of_rows: 10} }
+      
+      it "calculates width correctly" do
+        subject.text_column :a,10
+        subject.width.should == 10
+        subject.text_column :b,15
+        subject.width.should == 25
+        subject.spacer 5
+        subject.width.should == 30
+      end
     end
     
-    it "should calculate width correctly with cell padding" do
-      options.merge!(:cell_padding => 2)
-      subject = described_class.new(:table,[0,0],options)
-      subject.text_column :a,10
-      subject.width.should == 10
-      subject.text_column :b,15
-      subject.width.should == 27
-      subject.spacer 5
-      subject.width.should == 34
+    context "with padding" do
+      let(:options) { {height: 100, number_of_rows: 10, cell_padding: 2} }
+      
+      it "calculates width correctly" do
+        subject.text_column :a,10
+        subject.width.should == 10
+        subject.text_column :b,15
+        subject.width.should == 27
+        subject.spacer 5
+        subject.width.should == 34
+      end
+      
     end
   end
-
 end
+    

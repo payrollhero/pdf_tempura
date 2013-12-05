@@ -9,8 +9,8 @@ module PdfTempura
       @options = options
     end
     
-    def render(pdf,coords,value_hash,render_options = {})
-      render_at(pdf,coords,value_hash[@name],render_options)
+    def generates_field?
+      true
     end
   end
   
