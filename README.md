@@ -55,7 +55,13 @@ text_field(name, coordinates, dimensions, options)
 
 It also takes an options hash where you can set the following options:
 
-- **default_value**: A string value. The default value for the field. Default is nil.
+Common Options:
+
+- **type**: "text", "checkbox" or "box-list".  Defines the type of the field and draws the appropriate type. A box-list will create a box field for each character of the passed text.  Default is "text".
+- **default_value**: The default value for the field. Default is nil.
+
+TextField options:
+
 - **font_size**: A number in pixels (i.e. 13), or auto to change the font to fit the field size. Default is 10px.
 - **font_name**: The name of the font to use. Default: "Helvetica"
 - **italic**: True or false. Makes the text italic when set to true. Default to false.
@@ -86,6 +92,60 @@ It also takes an options hash where you can set the following options:
 page 1 do
   checkbox_field :send_me_snacks, [10, 20], [20, 20], { default_value: true }
 end
+```
+
+#### Tables
+
+```ruby
+class MyDoc < PdfTempura::Document
+  page 1 do
+    table :stuff, [500,50], height: 300, number_of_rows: 10, row_height: 25, cell_padding: 1 do
+      text_column :pin, 50
+      spacer 5
+      checkbox_column :last_name, 100
+    end
+  end
+end
+```
+
+The table construct allows the creation of a repeating set of fields.
+
+Table options:
+
+- **height**: Optional, height of the overall table.
+- **number_of_rows**: The number of rows in the table, required
+- **row_height**: The height of each row
+- **cell_padding**: Padding between each cell, optional
+
+The `table` call takes a name, the x,y position of the top-left corner
+of the table, the number of rows, either row_height or height (or both), and
+cell padding.
+
+Inside the table block, you define columns or spacers.  Columns themselves have
+amalgamous names to those you may use in "page" to describe fields.  Use
+"text_column" for a column containing text, "checkbox_column" for a cell
+containing a checkbox.
+
+Spacer only takes one parameter, its width.
+
+Column mimicks 'field', except you only specify the width of the column,
+the rest is figured out by the table.
+
+##### Assigning Table Data
+
+Table data is assigned through assigning an array of hashes to the key
+named after the name of the table.
+
+eg:
+
+```ruby
+data = {
+ 1 => {
+   stuff: [
+     {:pin => "12 3456789 6", :last_name => "Doe"}
+   ]
+ }
+}
 ```
 
 #### Specifying reusable groups

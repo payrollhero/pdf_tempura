@@ -19,7 +19,7 @@ module PdfTempura
             pdf.text_box @value.to_s, valign: :center, align: @field.alignment.to_sym, single_line: !@field.multi_line?, overflow: :shrink_to_fit, size: @field.font_size
           end
         end
-        TextField::AnnotationRenderer.new(@field).render(pdf) if draw_outlines?
+        Field::AnnotationRenderer.new(@field).render(pdf) if draw_outlines?
       end
 
       private
@@ -40,4 +40,4 @@ module PdfTempura
   end
 end
 
-require_relative 'text_field/annotation_renderer'
+require_relative 'field/annotation_renderer'

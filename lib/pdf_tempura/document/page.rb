@@ -24,6 +24,10 @@ module PdfTempura
     def checkbox_field(name, coordinates, dimensions, options = {})
       fields << Document::CheckboxField.new(name, coordinates, dimensions, options)
     end
+    
+    def table(name,coordinates,options = {},&block)
+      fields << Document::Table.new(name,coordinates,options,&block)
+    end
 
     def data
       @data ||= {}
