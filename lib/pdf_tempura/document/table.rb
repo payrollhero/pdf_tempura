@@ -1,8 +1,9 @@
 module PdfTempura
   class Document::Table < Document::Field::Base
-    attr_accessor :columns,:name,:row_height,:padding,:cell_padding
+    attr_accessor :columns,:name,:row_height,:padding,:cell_padding,:row_count
     
     validates :row_height, type: Numeric
+    validates :row_count, type: Numeric
     validates :padding, type: Array, inner_type: Numeric, count: 4
     validates :cell_padding, type: Numeric
 
@@ -68,11 +69,11 @@ module PdfTempura
     end
 
     def load_options(options)
-      @height = options[:height]
-      @row_height = options[:row_height]
-      @row_count = options[:number_of_rows]
-      @padding = options[:padding] || [0,0,0,0]
-      @cell_padding = options[:cell_padding] || 0
+      @height = options["height"]
+      @row_height = options["row_height"]
+      @row_count = options["number_of_rows"]
+      @padding = options["padding"] || [0,0,0,0]
+      @cell_padding = options["cell_padding"] || 0
 
       validate_height
     end
