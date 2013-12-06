@@ -1,8 +1,8 @@
 module PdfTempura
   module Render
-    module Field::AnnotationRenderer
+    module Debug::Annotation
       class Base
-        include FieldBounds
+        include Render::FieldBounds
 
         def initialize(field)
           @field = field

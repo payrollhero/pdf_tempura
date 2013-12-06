@@ -26,8 +26,8 @@ module PdfTempura
         }
       end
 
-      def render_annotation(pdf)
-        Field::AnnotationRenderer::CheckboxField.new(@field).render(pdf)
+      def render_debug_annotation(pdf)
+        Debug::CheckboxFieldAnnotation.new(@field).render(pdf)
       end
 
     end

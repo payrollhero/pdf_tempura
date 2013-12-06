@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe PdfTempura::Render::Field::AnnotationRenderer::TextField do
+describe PdfTempura::Render::Debug::TextFieldAnnotation do
 
   let(:pdf) { Prawn::Document.new }
   let(:field) { PdfTempura::Document::TextField.new("foo", [0,0], [100,100]) }

@@ -26,11 +26,9 @@ module PdfTempura
       def render(pdf)
         set_styling(pdf)
         render_field(pdf)
-        render_annotation(pdf) if draw_outlines?
+        render_debug_annotation(pdf) if draw_outlines?
       end
 
     end
   end
 end
-
-require_relative 'field/annotation_renderer'

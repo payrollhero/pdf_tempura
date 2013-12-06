@@ -19,13 +19,13 @@ module PdfTempura
           Render::Field.generate(field, value, @options).render(pdf)
         end
 
-        render_annotation(pdf) if draw_outlines?
+        render_debug_annotation(pdf) if draw_outlines?
       end
 
       private
 
-      def render_annotation(pdf)
-        Field::AnnotationRenderer::Table.new(@table).render(pdf)
+      def render_debug_annotation(pdf)
+        Debug::TableAnnotation.new(@table).render(pdf)
       end
 
     end

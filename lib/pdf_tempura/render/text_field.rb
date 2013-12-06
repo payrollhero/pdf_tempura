@@ -38,8 +38,8 @@ module PdfTempura
         }
       end
 
-      def render_annotation(pdf)
-        Field::AnnotationRenderer::TextField.new(@field).render(pdf)
+      def render_debug_annotation(pdf)
+        Debug::TextFieldAnnotation.new(@field).render(pdf)
       end
 
     end

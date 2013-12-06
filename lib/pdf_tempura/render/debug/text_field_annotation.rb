@@ -1,14 +1,14 @@
 module PdfTempura
   module Render
-    module Field::AnnotationRenderer
-      class CheckboxField < Base
+    module Debug
+      class TextFieldAnnotation < Annotation::Base
 
         private
 
         def coordinate_offsets
           {
-            xy: [1,16],
-            label: [1,-9]
+            xy: [1,-1],
+            label: [1,-1]
           }
         end
 
@@ -17,9 +17,10 @@ module PdfTempura
 
           {
             at: [off[0], @field.height+off[1]],
-            width: @field.width * 4,
-            height: @field.height - 2,
-            valign: :top
+            width: @field.width-2,
+            height: @field.height-2,
+            valign: :top,
+            single_line: true
           }
         end
 
@@ -27,11 +28,11 @@ module PdfTempura
           off = coordinate_offsets[:label]
 
           {
-            at: [off[0], @field.height + off[1]],
-            width: @field.width * 2,
-            height: @field.height - 2,
+            at: [off[0], @field.height+off[1]],
+            width: @field.width-2,
+            height: @field.height-2,
             valign: :bottom,
-            align: :left,
+            align: :right,
             single_line: true
           }
         end

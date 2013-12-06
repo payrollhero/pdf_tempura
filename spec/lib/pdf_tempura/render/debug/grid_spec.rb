@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe PdfTempura::Render::Page::GridRenderer do
+describe PdfTempura::Render::Debug::Grid do
 
   let(:pdf) { Prawn::Document.new }
 

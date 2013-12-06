@@ -10,7 +10,7 @@ module PdfTempura
 
       def render(pdf)
         pdf.go_to_page(@page.number)
-        Render::Page::GridRenderer.new.render(pdf) if draw_grid?
+        Render::Debug::Grid.new.render(pdf) if draw_grid?
 
         pairs = Render::FieldDataMapper.map(@page.fields, @page.data)
 
@@ -22,5 +22,3 @@ module PdfTempura
     end
   end
 end
-
-require_relative 'page/grid_renderer'

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe PdfTempura::Render::Field::AnnotationRenderer::CheckboxField do
+describe PdfTempura::Render::Debug::CheckboxFieldAnnotation do
 
   let(:pdf) { Prawn::Document.new }
   let(:field) { PdfTempura::Document::CheckboxField.new("foo", [0,0], [100,100]) }

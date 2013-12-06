@@ -70,7 +70,7 @@ describe PdfTempura::Render::Page do
       let(:grid_renderer) { double(:grid_renderer) }
 
       example do
-        PdfTempura::Render::Page::GridRenderer.should_receive(:new).and_return(grid_renderer)
+        PdfTempura::Render::Debug::Grid.should_receive(:new).and_return(grid_renderer)
         grid_renderer.should_receive(:render).with(pdf)
         subject.render(pdf)
       end

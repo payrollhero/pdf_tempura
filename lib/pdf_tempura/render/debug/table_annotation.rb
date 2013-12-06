@@ -1,7 +1,7 @@
 module PdfTempura
   module Render
-    module Field::AnnotationRenderer
-      class Table < Base
+    module Debug
+      class TableAnnotation < Annotation::Base
 
         private
 
