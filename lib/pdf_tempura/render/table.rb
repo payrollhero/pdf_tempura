@@ -25,12 +25,9 @@ module PdfTempura
       private
 
       def render_annotation(pdf)
-        Field::TableAnnotationRenderer.new(@table).render(pdf)
+        Field::AnnotationRenderer::Table.new(@table).render(pdf)
       end
 
     end
   end
 end
-
-require_relative 'page/grid_renderer'
-require_relative 'field/table_annotation_renderer'

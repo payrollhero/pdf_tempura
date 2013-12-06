@@ -27,12 +27,9 @@ module PdfTempura
       end
 
       def render_annotation(pdf)
-        Field::CheckboxAnnotationRenderer.new(@field).render(pdf)
+        Field::AnnotationRenderer::CheckboxField.new(@field).render(pdf)
       end
 
     end
   end
 end
-
-require_relative 'field/checkbox_annotation_renderer'
-

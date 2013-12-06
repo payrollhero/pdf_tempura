@@ -28,7 +28,7 @@ describe PdfTempura::Render::CheckboxField do
       let(:annotation_renderer) { double(:annotation_renderer) }
 
       example do
-        PdfTempura::Render::Field::CheckboxAnnotationRenderer.should_receive(:new).with(field).and_return(annotation_renderer)
+        PdfTempura::Render::Field::AnnotationRenderer::CheckboxField.should_receive(:new).with(field).and_return(annotation_renderer)
         annotation_renderer.should_receive(:render).with(pdf)
         subject.render(pdf)
       end

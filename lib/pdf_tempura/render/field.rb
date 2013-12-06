@@ -32,3 +32,5 @@ module PdfTempura
     end
   end
 end
+
+require_relative 'field/annotation_renderer'

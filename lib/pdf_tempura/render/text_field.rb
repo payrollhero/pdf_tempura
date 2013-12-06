@@ -39,11 +39,9 @@ module PdfTempura
       end
 
       def render_annotation(pdf)
-        Field::AnnotationRenderer.new(@field).render(pdf)
+        Field::AnnotationRenderer::TextField.new(@field).render(pdf)
       end
 
     end
   end
 end
-
-require_relative 'field/annotation_renderer'
