@@ -60,7 +60,7 @@ end
 
 require_relative 'document/validation'
 require_relative 'document/page'
-require_relative 'document/field'
+require_relative 'document/field/base'
 require_relative 'document/text_field'
 require_relative 'document/checkbox_field'
 require_relative 'document/table'
