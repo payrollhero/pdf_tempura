@@ -94,6 +94,25 @@ page 1 do
 end
 ```
 
+#### Boxed Characters
+This is a field which helps you to display a field which needs to be printed
+in a boxed fashion.  E.g. [H][E][L][L][O]-[W][O][R][L][D].
+
+```ruby
+boxed_characters :name, [10,20], [50,20], {box_spacing: 1, box_width: 10} do
+  characters 4
+  space 2
+  characters 4
+end
+```
+
+Boxed Characters options:
+
+- **box_spacing**: Required, amount of space between each individual box
+- **box_width**: Required, the width of each individual box
+- **other**: You may use any of the options that are also in use with text_field
+EXCEPT for alignment, multi-line, and padding.
+
 #### Tables
 
 ```ruby

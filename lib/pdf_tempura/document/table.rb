@@ -1,17 +1,17 @@
 module PdfTempura
-  class Document::Table
+  class Document::Table < Document::Field::Base
+    attr_accessor :columns,:name,:row_height,:padding,:cell_padding
+    
+    validates :row_height, type: Numeric
+    validates :padding, type: Array, inner_type: Numeric, count: 4
+    validates :cell_padding, type: Numeric
 
-    def initialize(name, origin, options = {}, &block)
-      @name = name
-      (@x, @y) = origin
-      @options = options
+    def initialize(name,coordinates,options = {},&block)
+      super(name,coordinates,[0,0],options)
       @columns = []
-
-      load_options(options)
+      
       instance_eval(&block) if block_given?
     end
-
-    attr_accessor :x, :y, :columns, :name, :row_count, :padding, :cell_padding
 
     def width
       table_width + padding_width
@@ -84,3 +84,4 @@ require_relative 'table/column'
 require_relative 'table/text_column'
 require_relative 'table/checkbox_column'
 require_relative 'table/spacer'
+
