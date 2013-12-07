@@ -41,4 +41,4 @@ module PdfTempura
   end
 end
 
-require_relative 'debug/boxed_characters_annotation'
+require_relative 'debug/outside_annotation'

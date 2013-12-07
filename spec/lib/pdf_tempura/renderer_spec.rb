@@ -13,6 +13,21 @@ describe PdfTempura::Renderer do
       }.not_to raise_exception
     end
   end
+  
+  describe "#render_into" do
+    subject do
+      described_class.new(sample_pdf_path, pages, options)
+    end
+    let(:pdf) {
+      Prawn::Document.new(skip_page_creation: true, margin: 0)
+    }
+    
+    it "renders into the pdf" do
+      expect {
+      subject.render_into(pdf)
+      }.not_to raise_exception
+    end
+  end
 
   describe "#render" do
     subject do

@@ -25,10 +25,6 @@ describe PdfTempura::Render::Page do
 
   describe "render" do
 
-    before do
-      pdf.should_receive(:go_to_page).with(1)
-    end
-
     subject do
       described_class.new(page, options)
     end

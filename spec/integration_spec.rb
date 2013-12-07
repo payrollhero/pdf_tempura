@@ -48,6 +48,18 @@ describe PdfTempura do
         end
       end
     end
+    
+    example "renders multiple times" do
+      FileUtils.mkdir_p("tmp")
+      File.open("tmp/integration2.pdf","w") do |fh|
+        pdf = Prawn::Document.new(skip_page_creation: true, margin: 0)
+        my_pdf = MyPdf.new(data)
+        my_pdf.render_into(pdf)
+        my_pdf.render_into(pdf)
+
+        fh.write pdf.render
+      end
+    end
 
   end
 
