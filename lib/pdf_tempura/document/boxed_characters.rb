@@ -32,7 +32,7 @@ module PdfTempura
     end
     
     def width
-      groups.inject(0) {|sum,group| sum + box_width*group.characters + group.spacing}
+      groups.inject(0) {|sum,group| sum + group.width(box_width,box_spacing)}
     end
     
     def dimensions
@@ -45,7 +45,7 @@ module PdfTempura
       fields = []
       groups.inject(self.x) do |x,group|
         group.each_supported_character do
-          fields << Document::CharacterField.new(name,[x,y],[box_width,height],text_options)
+          fields << Document::CharacterField.new(name, [x,y], [box_width,height], text_options)
           x+= box_width + box_spacing
         end
         x + group.spacing - (group.characters > 0 ? box_spacing : 0)
@@ -57,7 +57,7 @@ module PdfTempura
       @box_width = options["box_width"]
       @box_spacing = options["box_spacing"]
       @truncate = options["truncate"] || false
-      @text_options = options.reject {|key,v| ["box_width","box_spacing","truncate"].include?(key)}
+      @text_options = options.reject { |key,v| ["box_width", "box_spacing", "truncate"].include?(key) }
       @padding = [0,0,0,0]
     end
 

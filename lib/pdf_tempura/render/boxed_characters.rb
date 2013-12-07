@@ -19,7 +19,7 @@ module PdfTempura
         values = value.chars
         field.fields.each do |field|
           break if values.empty?
-          Field::generate(field,values.shift,@options).render(pdf)
+          Field::generate(field, values.shift, @options).render(pdf)
         end
 
         render_debug_annotation(pdf) if draw_outlines?

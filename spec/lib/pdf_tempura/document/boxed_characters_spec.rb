@@ -3,7 +3,7 @@ require 'spec_helper'
 describe PdfTempura::Document::BoxedCharacters do
 
   context "valid options" do
-    let(:options) {{box_width: 10, box_spacing: 1}}
+    let(:options) {{box_width: 10, box_spacing: 0}}
     let(:height){ 100 }
     subject{ described_class.new(name, coordinates, height,options) { characters 20} }
     it_behaves_like "a document field"
