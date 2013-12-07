@@ -42,6 +42,12 @@ module PdfTempura
         raise ArgumentError, "#{method.capitalize} is required." unless object.send(method)
       end
     end
+    
+    class BooleanValidator
+      def validate(object, method, not_used)
+        raise ArgumentError, "#{method.capitalize} must be of type boolean." unless object.send(method).is_a?(TrueClass) || object.send(method).is_a?(FalseClass)
+      end
+    end
 
     class InclusionValidator
       def validate(object, method, values)
