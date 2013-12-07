@@ -61,6 +61,8 @@ end
 require_relative 'document/validation'
 require_relative 'document/page'
 require_relative 'document/field/base'
+require_relative 'document/character_field'
 require_relative 'document/text_field'
 require_relative 'document/checkbox_field'
 require_relative 'document/table'
+require_relative 'document/boxed_characters'

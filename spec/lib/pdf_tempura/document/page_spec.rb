@@ -77,6 +77,23 @@ describe PdfTempura::Document::Page do
       end
     end
   end
+  
+  describe ".boxed_characters" do
+    let(:name){ :pin_code}
+    let(:height) {20}
+    let(:coordinates) {[50,20]}
+    let(:options) {{box_spacing: 1, box_width: 10}}
+    
+    context "when passed appropriate parameters" do
+      it "adds a field to the subject" do
+        expect{
+          subject.boxed_characters(name, coordinates, height, options) do
+            characters 4
+          end
+        }.to change(subject.fields, :count).by (1)
+      end
+    end
+  end
 
   describe ".checkbox_field" do
     let(:name){ :checkbox_field}

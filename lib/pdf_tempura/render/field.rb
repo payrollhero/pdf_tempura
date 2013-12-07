@@ -10,6 +10,10 @@ module PdfTempura
           CheckboxField.new(field,value,options)
         when Document::TextField
           TextField.new(field, value, options)
+        when Document::CharacterField
+          CharacterField.new(field, value, options)
+        when Document::BoxedCharacters
+          BoxedCharacters.new(field, value, options)
         when Document::Table
           Render::Table.new(field,value,options)
         else
