@@ -34,7 +34,7 @@ module PdfTempura
       end
 
       def render_debug_annotation(pdf)
-        Debug::BoxedCharactersAnnotation.new(field).render(pdf)
+        Debug::OutsideAnnotation.new(field).render(pdf)
       end
 
     end

@@ -26,7 +26,6 @@ module PdfTempura
 
         def label_options
           off = coordinate_offsets[:label]
-
           {
             at: [off[0], @field.height+off[1]],
             width: @field.width-2,

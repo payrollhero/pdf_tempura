@@ -1,7 +1,7 @@
 module PdfTempura
   module Render
     module Debug
-      class TableAnnotation < Annotation::Base
+      class OutsideAnnotation < Annotation::Base
 
         private
 
