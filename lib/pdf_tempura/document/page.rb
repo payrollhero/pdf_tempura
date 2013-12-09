@@ -28,7 +28,7 @@ module PdfTempura
     def table(name, coordinates, options = {}, &block)
       fields << Document::Table.new(name, coordinates, options, &block)
     end
-    
+
     def boxed_characters(name,coordinates,height, options = {},&block)
       fields << Document::BoxedCharacters.new(name,coordinates,height,options,&block)
     end

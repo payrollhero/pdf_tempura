@@ -16,9 +16,9 @@ module PdfTempura
           off = coordinate_offsets[:xy]
 
           {
-            at: [off[0], @field.height+off[1]],
-            width: @field.width-2,
-            height: @field.height-2,
+            at: [off[0], @field.height + off[1]],
+            width: @field.width - 2,
+            height: @field.height - 2,
             valign: :top,
             single_line: true
           }
@@ -27,9 +27,9 @@ module PdfTempura
         def label_options
           off = coordinate_offsets[:label]
           {
-            at: [off[0], @field.height+off[1]],
-            width: @field.width-2,
-            height: @field.height-2,
+            at: [off[0], @field.height + off[1]],
+            width: @field.width - 2,
+            height: @field.height - 2,
             valign: :bottom,
             align: :right,
             single_line: true

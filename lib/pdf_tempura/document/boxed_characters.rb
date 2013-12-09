@@ -7,49 +7,53 @@ module PdfTempura
     validates :box_width, required: true, type: Numeric
     validates :box_spacing, required: true, type: Numeric
     validates :truncate, boolean: true
-    
-    def initialize(name,coordinates,height,options = {},&block)
+
+    def initialize(name, coordinates, height, options = {}, &block)
       @groups = []
-      super(name,coordinates,[0,height],options)
-      
+
+      super name, coordinates, [0, height], options
+
       instance_eval(&block) if block_given?
     end
-    
+
     def characters(characters)
       @groups << CharacterGroup.new(characters)
     end
-    
+
     def space(width)
       @groups << SpaceGroup.new(width)
     end
-    
+
     def supported_characters
       @groups.map(&:characters).inject(:+)
     end
-    
+
     def fields
       @fields ||= generate_text_fields
     end
-    
+
     def width
-      groups.inject(0) {|sum,group| sum + group.width(box_width,box_spacing)}
+      groups.inject(0){ |sum,group| sum + group.width(box_width, box_spacing) }
     end
-    
+
     def dimensions
-      [width,@dimensions[1]]
+      [width, @dimensions[1]]
     end
-    
+
     private
-    
+
     def generate_text_fields
       fields = []
-      groups.inject(self.x) do |x,group|
+
+      groups.inject(self.x) do |x, group|
         group.each_supported_character do
           fields << Document::CharacterField.new(name, [x,y], [box_width,height], text_options)
           x+= box_width + box_spacing
         end
+
         x + group.spacing - (group.characters > 0 ? box_spacing : 0)
       end
+
       fields
     end
 
