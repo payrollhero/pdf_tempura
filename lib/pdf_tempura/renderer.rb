@@ -19,7 +19,7 @@ module PdfTempura
     end
 
     def render
-      tempfile = Tempfile.new("render")
+      tempfile = Tempfile.new(["render",".pdf"],:encoding => 'ascii-8bit')
 
       begin
         pdf = Prawn::Document.new(skip_page_creation: true, margin: 0)
