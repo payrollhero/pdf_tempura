@@ -238,6 +238,26 @@ mypdf.render do |pdf|
 end
 ```
 
+### Repeating data
+If you would like the template you have specified to be repeated on matching pages
+then you need to use the "repeatable" option in your Document class.  If repeatable is set
+then if you specify pages 1,2 in your document, and then specify 1,2,3,4 in your data
+the produced page will reuse the template's page 1 for page 3 and page 2 for page 4, etc.
+```ruby
+class MyPdf < PdfTempura::Document
+
+  template "/some/path/to/template.pdf"
+  repeatable
+
+  ...
+
+end
+data = {1 => ... data for page 1,
+        2 => ... data for page 2,
+        3 => ... data for page 3,
+        4 => ... data for page 4}
+```
+
 ### Debug mode
 
 You can set your template to debug mode to help you position your fields using the `debug` method. The debug options are:
