@@ -15,11 +15,11 @@ module PdfTempura
       end
 
       def render(pdf)
+        characters = value.chars.to_a
 
-        values = value.chars.to_a
         field.fields.each do |field|
-          break if values.empty?
-          Field::generate(field, values.shift, @options).render(pdf)
+          break if characters.empty?
+          Field::generate(field, characters.shift, @options).render(pdf)
         end
 
         render_debug_annotation(pdf) if draw_outlines?
@@ -40,5 +40,3 @@ module PdfTempura
     end
   end
 end
-
-require_relative 'debug/outside_annotation'

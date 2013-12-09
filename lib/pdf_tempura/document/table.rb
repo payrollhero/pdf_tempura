@@ -1,7 +1,8 @@
 module PdfTempura
   class Document::Table < Document::Field::Base
+
     attr_accessor :columns,:name,:row_height,:padding,:cell_padding,:row_count
-    
+
     validates :row_height, type: Numeric
     validates :row_count, type: Numeric
     validates :padding, type: Array, inner_type: Numeric, count: 4
@@ -10,7 +11,7 @@ module PdfTempura
     def initialize(name,coordinates,options = {},&block)
       super(name,coordinates,[0,0],options)
       @columns = []
-      
+
       instance_eval(&block) if block_given?
     end
 
@@ -55,7 +56,7 @@ module PdfTempura
     end
 
     def table_width
-      columns.inject(0){ |sum, column| sum + column.width }
+      columns.map(&:width).inject(0, :+)
     end
 
     def padding_width

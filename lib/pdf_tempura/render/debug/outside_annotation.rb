@@ -16,7 +16,7 @@ module PdfTempura
           off = coordinate_offsets[:xy]
 
           {
-            at: [off[0], @field.height+off[1]],
+            at: [off[0], @field.height + off[1]],
             width: @field.width * 4,
             height: @field.height - 2,
             valign: :top

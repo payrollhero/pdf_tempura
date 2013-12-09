@@ -44,7 +44,7 @@ module PdfTempura
     def render(&block)
       PdfTempura::Renderer.new(self.class.template_file_path, self.pages, { debug: self.class.debug_options }).render(&block)
     end
-    
+
     def render_into(pdf)
       PdfTempura::Renderer.new(self.class.template_file_path, self.pages, { debug: self.class.debug_options }).render_into(pdf)
     end

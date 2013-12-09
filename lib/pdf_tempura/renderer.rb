@@ -9,7 +9,7 @@ module PdfTempura
       @pages = pages
       @options = options
     end
-    
+
     def render_into(pdf)
       @pages.to_enum.with_index(1).each do |page, i|
         pdf.start_new_page template: @template_path, template_page: i

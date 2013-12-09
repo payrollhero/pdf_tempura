@@ -36,13 +36,13 @@ module PdfTempura
       validator_name = validation_type.to_s.split("_").push("validator").map(&:capitalize).join
       Document::Validation.const_get(validator_name)
     end
-    
+
     class RequiredValidator
       def validate(object, method, not_used)
         raise ArgumentError, "#{method.capitalize} is required." unless object.send(method)
       end
     end
-    
+
     class BooleanValidator
       def validate(object, method, not_used)
         raise ArgumentError, "#{method.capitalize} must be of type boolean." unless object.send(method).is_a?(TrueClass) || object.send(method).is_a?(FalseClass)
