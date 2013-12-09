@@ -3,7 +3,7 @@ module PdfTempura
     class BoxedCharacters
       include OptionAccess
       include FieldBounds
-      
+
       attr_accessor :field,:value
 
       def initialize(field, value, options = {})
@@ -15,8 +15,8 @@ module PdfTempura
       end
 
       def render(pdf)
-        
-        values = value.chars
+
+        values = value.chars.to_a
         field.fields.each do |field|
           break if values.empty?
           Field::generate(field, values.shift, @options).render(pdf)
@@ -26,7 +26,7 @@ module PdfTempura
       end
 
       private
-      
+
       def validate_value_length!
         if value && !field.truncate? && value.length > field.supported_characters
           raise ArgumentError.new("Data for #{field.name} must be exactly #{field.supported_characters} characters or use the truncate option.")
