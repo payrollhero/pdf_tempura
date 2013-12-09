@@ -3,6 +3,7 @@ class MyPdf < PdfTempura::Document
 
   debug :outlines
   debug :grid
+  repeatable
 
   page 1 do
     text_field "name", [193,641.5], [311.5,25], padding: [0,5,0,5]

@@ -9,13 +9,13 @@ describe PdfTempura::Document do
   describe "#new" do
     let(:data) do
       {
-        100 => {
+        1 => {
           first_name: "Stan",
           surname: "Smith",
           company: "CIA",
           address: "The Pentagon, Washington, DC"
         },
-        200 => {
+        2 => {
           emergency_contact: "Francine Smith",
           phone_number: "123-456-7890"
         }
@@ -23,8 +23,8 @@ describe PdfTempura::Document do
     end
 
     before :each do
-      dummy_class.page(100){}
-      dummy_class.page(200){}
+      dummy_class.page(1){}
+      dummy_class.page(2){}
     end
 
     it "loads the data into each correct page" do
@@ -47,6 +47,19 @@ describe PdfTempura::Document do
       dummy_class.new(data)
       dummy_class.pages.first.data.should == {}
       dummy_class.pages.last.data.should == {}
+    end
+
+    context "too many pages" do
+      let(:data) do
+        {
+          1 => {},
+          2 => {},
+          3 => {}
+        }
+      end
+      it "complains" do
+        expect { dummy_class.new(data)}.to raise_exception("There are more pages in the data than pages defined.  Use 'repeatable' to repeat template pages in the document class.")
+      end
     end
   end
 

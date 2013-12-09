@@ -16,6 +16,14 @@ module PdfTempura
         @pages ||= []
       end
 
+      def repeatable
+        @repeatable = true
+      end
+
+      def repeatable_option
+        @repeatable || false
+      end
+
       def page(page_number, &block)
         page = Page.new(page_number)
         pages << page
@@ -42,21 +50,54 @@ module PdfTempura
     end
 
     def render(&block)
-      PdfTempura::Renderer.new(self.class.template_file_path, self.pages, { debug: self.class.debug_options }).render(&block)
-    end
-    
-    def render_into(pdf)
-      PdfTempura::Renderer.new(self.class.template_file_path, self.pages, { debug: self.class.debug_options }).render_into(pdf)
+      new_renderer.render(&block)
     end
 
     private
 
-    def load_data(data)
-      self.class.pages.each do |page|
+    def repeatable
+      self.class.repeatable_option
+    end
+
+    def new_renderer
+      PdfTempura::Renderer.new(self.class.template_file_path,
+        self.pages,
+        { debug: self.class.debug_options,
+          repeatable: self.class.repeatable_option,
+          template_page_count: class_pages.count
+        })
+    end
+
+    def generate_pages_from_data(data)
+      data.each_with_index do |page_data,number|
+        page = class_pages[number % class_pages.count ]
         self.pages << page.dup.tap{ |new_page|
-          new_page.data = data[page.number] || {}
+          new_page.data = page_data || {}
         }
       end
+      generate_missing_pages
+    end
+
+    def class_pages
+      self.class.pages
+    end
+
+    def generate_missing_pages
+      if pages.count % class_pages.count != 0
+        [(pages.count % class_pages.count ) .. class_pages.count].each do |number|
+          page = class_pages[number]
+          self.pages << page.dup
+        end
+      end
+    end
+
+    def load_data(data)
+      if !repeatable && data.keys.count > self.class.pages.count
+        raise ArgumentError.new("There are more pages in the data than pages defined.  Use 'repeatable' to repeat template pages in the document class.")
+      end
+
+      data_for_pages = data.values_at(*(data.keys.select {|k| k.kind_of?(Numeric)}))
+      generate_pages_from_data(data_for_pages)
     end
 
   end
