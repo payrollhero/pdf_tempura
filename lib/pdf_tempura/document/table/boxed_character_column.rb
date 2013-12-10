@@ -5,7 +5,7 @@ module PdfTempura
       @name = name
       @height = height
       @options = options
-      @block = block.to_proc if block_given?
+      @block = block if block_given?
     end
 
     def width

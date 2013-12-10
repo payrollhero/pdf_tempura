@@ -6,7 +6,6 @@ module PdfTempura
 
       def set_styling(pdf)
         pdf.fill_color = "000000"
-        pdf.font_size @field.font_size
         pdf.font @field.font_name, style: font_style
       end
 

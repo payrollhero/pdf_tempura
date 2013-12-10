@@ -23,23 +23,21 @@ module PdfTempura
     end
 
     def x
-      return 0 if fields.empty?
-      fields.map(&:x).min
+      fields.map(&:x).min || 0
     end
 
     def y
-      return 0 if fields.empty?
-      fields.map(&:y).max
+      fields.map(&:y).max || 0
     end
 
     def width
       return 0 if fields.empty?
-      fields.map {|f| f.x + f.width}.max  - x
+      fields.map {|field| field.x + field.width}.max  - x
     end
 
     def height
       return 0 if fields.empty?
-      y - fields.map {|f| f.y - f.height}.min
+      y - fields.map {|field| field.y - field.height}.min
     end
 
     def padding

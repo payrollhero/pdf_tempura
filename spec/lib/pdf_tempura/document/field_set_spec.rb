@@ -13,7 +13,9 @@ describe PdfTempura::Document::FieldSet do
     end
 
     it "should yield" do
-
+      expect { |b|
+        described_class.new(group_name,&b)
+      }.to yield_control
     end
   end
 

@@ -17,7 +17,7 @@ describe PdfTempura::Render::Debug::CheckboxFieldAnnotation do
   let(:label_options) do
     {
       at: [1, 91],
-      width: 200,
+      width: 98,
       height: 98,
       valign: :bottom,
       align: :left,

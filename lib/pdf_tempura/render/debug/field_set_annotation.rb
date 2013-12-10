@@ -9,6 +9,7 @@ module PdfTempura
         end
 
         def render_xy(pdf)
+          #don't render an xy label for this annotation
         end
 
         def render_label(pdf)

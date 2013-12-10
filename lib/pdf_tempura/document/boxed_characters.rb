@@ -44,18 +44,16 @@ module PdfTempura
     private
 
     def generate_text_fields
-      fields = []
+      [].tap do |fields|
+        groups.inject(self.x) do |x, group|
+          group.each_supported_character do
+            fields << Document::CharacterField.new(name, [x,y], [box_width,height], text_options)
+            x+= box_width + box_spacing
+          end
 
-      groups.inject(self.x) do |x, group|
-        group.each_supported_character do
-          fields << Document::CharacterField.new(name, [x,y], [box_width,height], text_options)
-          x+= box_width + box_spacing
+          x + group.spacing - (group.characters > 0 ? box_spacing : 0)
         end
-
-        x + group.spacing - (group.characters > 0 ? box_spacing : 0)
       end
-
-      fields
     end
 
     def load_options(options)

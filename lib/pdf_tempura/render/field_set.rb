@@ -11,7 +11,7 @@ module PdfTempura
 
       def render(pdf)
         render_debug_annotation(pdf) if draw_outlines?
-        
+
         pairs = Render::FieldDataMapper.map(@set.fields, @data)
 
         pairs.each do |(field, value)|
@@ -28,4 +28,3 @@ module PdfTempura
   end
 end
 
-require_relative 'debug/field_set_annotation'
