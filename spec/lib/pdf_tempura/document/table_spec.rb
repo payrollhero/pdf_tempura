@@ -95,6 +95,14 @@ describe PdfTempura::Document::Table do
       subject.columns.count.should == 1
       subject.columns.first.should be_kind_of(PdfTempura::Document::Table::CheckboxColumn)
     end
+
+    it "should get a field at the correct coordinates" do
+      subject.checkbox_column(:pin,50)
+      field = subject.columns.first.field_at([50,50])
+      field.coordinates.should == [50,50]
+      field.dimensions.should == [50,10]
+    end
+
   end
 
   describe "#spacer" do

@@ -2,7 +2,7 @@ module PdfTempura
   class Document::Table::CheckboxColumn < Document::Table::Column
 
     def field_at(coordinates)
-      return Document::CheckboxField.new(name, coordindates, options)
+      Document::CheckboxField.new(name, coordinates, [width,height], options)
     end
 
   end
