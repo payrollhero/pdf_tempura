@@ -263,6 +263,31 @@ data = {1 => ... data for page 1,
         4 => ... data for page 4}
 ```
 
+### FieldSets
+A fieldset allows you to group pieces of data under a particular heading.  You
+define a fieldset simply by the name of the heading it will be contained under
+in the data.  This is to help you organize your data logically.
+
+```ruby
+class MyPdf < PdfTempura::Document
+  ...
+
+  page 1 do
+    field_set "customer" do
+      text_field "name",[0,0],[10,20]
+      text_field "address", [0,10],[10,20]
+  end
+
+end
+
+data = {
+  1 => {
+     "customer" => { "name" => "John Bazdaritch", "address" => "123 Hollywood Blvd" }
+  }
+}
+
+```
+
 ### Debug mode
 
 You can set your template to debug mode to help you position your fields using the `debug` method. The debug options are:

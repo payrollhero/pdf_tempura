@@ -25,7 +25,9 @@ class MyPdf < PdfTempura::Document
       text_column "name",232, padding: [5,5,5,5]
       text_column "email",224, padding: [5,5,5,5]
     end
-    text_field "form_id", [122,60], [125,27], padding: [5,5,5,5]
+    field_set "form" do
+      text_field "id", [122,60], [125,27], padding: [5,5,5,5]
+    end
   end
 
 end
