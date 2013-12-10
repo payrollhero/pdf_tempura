@@ -1,7 +1,9 @@
+require_relative 'outside_annotation'
+
 module PdfTempura
   module Render
     module Debug
-      class CheckboxFieldAnnotation < Annotation::Base
+      class CheckboxFieldAnnotation < OutsideAnnotation
 
         private
 
@@ -12,28 +14,10 @@ module PdfTempura
           }
         end
 
-        def field_options
-          off = coordinate_offsets[:xy]
-
-          {
-            at: [off[0], @field.height+off[1]],
-            width: @field.width * 4,
-            height: @field.height - 2,
-            valign: :top
-          }
-        end
-
         def label_options
-          off = coordinate_offsets[:label]
-
-          {
-            at: [off[0], @field.height + off[1]],
-            width: @field.width * 2,
-            height: @field.height - 2,
-            valign: :bottom,
-            align: :left,
-            single_line: true
-          }
+          super.merge({
+              align: :left
+            })
         end
 
       end

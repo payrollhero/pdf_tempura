@@ -97,12 +97,23 @@ describe PdfTempura::Document::Table do
     end
   end
 
-  describe "#spacer" do
+  describe ".boxed_character_column" do
     let(:options) { {height: 100, number_of_rows: 10} }
     let(:subject) { described_class.new(:table,[0,0],options)}
 
-    it "should add a spacer to the table" do
-      subject.spacer(5)
+    it "should add a column to the table" do
+      subject.boxed_character_column(:pin, box_width: 10, box_spacing: 1)
+      subject.columns.count.should == 1
+      subject.columns.first.should be_kind_of(PdfTempura::Document::Table::BoxedCharacterColumn)
+    end
+  end
+
+  describe "#space" do
+    let(:options) { {height: 100, number_of_rows: 10} }
+    let(:subject) { described_class.new(:table,[0,0],options)}
+
+    it "should add a space to the table" do
+      subject.space(5)
       subject.columns.count.should == 1
       subject.columns.first.should be_kind_of(PdfTempura::Document::Table::Spacer)
     end
@@ -119,7 +130,7 @@ describe PdfTempura::Document::Table do
         subject.width.should == 10
         subject.text_column :b,15
         subject.width.should == 25
-        subject.spacer 5
+        subject.space 5
         subject.width.should == 30
       end
     end
@@ -132,7 +143,7 @@ describe PdfTempura::Document::Table do
         subject.width.should == 10
         subject.text_column :b,15
         subject.width.should == 27
-        subject.spacer 5
+        subject.space 5
         subject.width.should == 34
       end
 

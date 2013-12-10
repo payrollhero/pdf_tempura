@@ -17,7 +17,7 @@ module PdfTempura
         if self.instance_methods.include?(name)
           validations[name] = validation_options
         else
-          raise NoMethdError, "Can't validate undefined method '#{method}'."
+          raise NoMethodError, "Can't validate undefined method '#{name}'."
         end
       end
     end

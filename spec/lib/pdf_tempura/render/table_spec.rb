@@ -2,14 +2,18 @@ require 'spec_helper'
 
 describe PdfTempura::Render::Table do
 
-  let(:doc_table) { 
+  let(:doc_table) {
     PdfTempura::Document::Table.new(:table,[0,100],:number_of_rows => 10, :height => 100) do
       text_column :a, 10
-      spacer 10
+      space 10
       text_column :b, 10
+      space 5
+      boxed_character_column :c,box_width: 10,box_spacing: 1 do
+        characters 3;space 2;characters 3
+      end
     end
   }
-  let(:data) { [{:a => "1",:b => "2"},{:a => "3",:b => "4"}] }
+  let(:data) { [{:a => "1",:b => "2",c: "333333"},{:a => "3",:b => "4",c: "555555"}] }
   let(:pdf) { Prawn::Document.new }
   let(:options) { {} }
 
@@ -20,7 +24,7 @@ describe PdfTempura::Render::Table do
       }.not_to raise_exception
     end
   end
-  
+
   describe "render" do
 
     it "renders each field with the appropriate data" do

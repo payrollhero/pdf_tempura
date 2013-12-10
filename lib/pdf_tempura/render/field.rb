@@ -16,6 +16,8 @@ module PdfTempura
           BoxedCharacters.new(field, value, options)
         when Document::Table
           Render::Table.new(field,value,options)
+        when Document::FieldSet
+          Render::FieldSet.new(field,value,options)
         else
           raise ArgumentError, "don't know how to handle field kind: #{field.class}"
         end

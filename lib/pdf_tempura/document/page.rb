@@ -1,6 +1,7 @@
 module PdfTempura
   class Document::Page
     include Document::Validation
+    include Document::DefaultCommands
 
     def initialize(page_number)
       @number = page_number
@@ -9,28 +10,12 @@ module PdfTempura
       validate!
     end
 
-    attr_reader :number, :fields
+    attr_reader :number
 
     validates :number, type: Numeric
 
     def ==(other)
       self.number == other.number
-    end
-
-    def text_field(name, coordinates, dimensions, options = {})
-      fields << Document::TextField.new(name, coordinates, dimensions, options)
-    end
-
-    def checkbox_field(name, coordinates, dimensions, options = {})
-      fields << Document::CheckboxField.new(name, coordinates, dimensions, options)
-    end
-
-    def table(name, coordinates, options = {}, &block)
-      fields << Document::Table.new(name, coordinates, options, &block)
-    end
-
-    def boxed_characters(name,coordinates,height, options = {},&block)
-      fields << Document::BoxedCharacters.new(name,coordinates,height,options,&block)
     end
 
     def data
@@ -43,3 +28,5 @@ module PdfTempura
 
   end
 end
+
+require_relative "default_commands"

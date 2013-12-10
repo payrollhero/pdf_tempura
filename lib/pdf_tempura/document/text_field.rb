@@ -9,6 +9,8 @@ module PdfTempura
 
       @alignment = (options["alignment"] || "left").to_s
       @multi_line = options["multi_line"] || false
+      @valign = options["valign"] || "center"
+      @leading = options["leading"] || 0
     end
 
   end

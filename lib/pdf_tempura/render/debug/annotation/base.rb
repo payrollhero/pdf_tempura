@@ -40,11 +40,15 @@ module PdfTempura
         def render_boxes(pdf)
           pdf.transparent 0.5 do
             field_bounds_box(pdf) do
-              draw_box_border(pdf, "CCCC33")
-              fill_box_color(pdf, "CCCC33")
+              draw_box_border(pdf, box_color)
+              fill_box_color(pdf, box_color)
               draw_padding(pdf)
             end
           end
+        end
+
+        def box_color
+          "CCCC33"
         end
 
         def draw_box_border(pdf, color)

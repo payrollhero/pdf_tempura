@@ -19,7 +19,9 @@ describe PdfTempura do
           ",
         },
         2 => {
-          "form_id" => "123",
+          "form" => {
+            "id" => "123",
+          },
           "table" => [
             {"id" => "1","name" => "one", "email" => "one@theone.com"},
             {"id" => "2","name" => "two", "email" => "two@theone.com"},
@@ -49,7 +51,9 @@ describe PdfTempura do
           ",
         },
         4 => {
-          "form_id" => "123",
+          "form" => {
+            "id" => "123",
+          },
           "table" => [
             {"id" => "1","name" => "one", "email" => "one@theone.com"},
             {"id" => "2","name" => "two", "email" => "two@theone.com"},

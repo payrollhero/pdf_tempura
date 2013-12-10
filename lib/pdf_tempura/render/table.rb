@@ -25,9 +25,10 @@ module PdfTempura
       private
 
       def render_debug_annotation(pdf)
-        Debug::OutsideAnnotation.new(@table).render(pdf)
+        Debug::TableAnnotation.new(@table).render(pdf)
       end
 
     end
   end
 end
+
