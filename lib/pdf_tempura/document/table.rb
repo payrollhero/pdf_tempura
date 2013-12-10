@@ -35,7 +35,11 @@ module PdfTempura
       columns << Document::Table::CheckboxColumn.new(name,width,row_height,options)
     end
 
-    def spacer(width)
+    def boxed_character_column(name,options = {},&block)
+      columns << Document::Table::BoxedCharacterColumn.new(name,row_height,options,&block)
+    end
+
+    def space(width)
       columns << Document::Table::Spacer.new(width,row_height)
     end
 
@@ -86,4 +90,5 @@ require_relative 'table/column'
 require_relative 'table/text_column'
 require_relative 'table/checkbox_column'
 require_relative 'table/spacer'
+require_relative 'table/boxed_character_column'
 

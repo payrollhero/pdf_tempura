@@ -19,6 +19,8 @@ describe PdfTempura::Document::TextField do
       alignment: alignment,
       multi_line: multi_line,
       padding: padding,
+      valign: valign,
+      leading: leading
     }
   end
 
@@ -29,6 +31,8 @@ describe PdfTempura::Document::TextField do
   let(:alignment){ :center }
   let(:multi_line){ true }
   let(:padding) { [1,2,3,4] }
+  let(:leading) { 5 }
+  let(:valign) {"center"}
 
   subject{ described_class.new(name, coordinates, dimensions, options) }
 
@@ -40,6 +44,8 @@ describe PdfTempura::Document::TextField do
   its(:alignment){ should == "center" }
   it{ should be_multi_line }
   its(:padding) { should == [1,2,3,4] }
+  its(:valign) { should == "center"}
+  its(:leading) { should == 5}
 
   describe "defaults" do
     subject{ described_class.new(name, coordinates, dimensions) }

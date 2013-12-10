@@ -2,7 +2,7 @@ module PdfTempura
   class Document::CharacterField < Document::Field::Base
 
     attr_reader :default_value, :font_name, :font_size, :bold, :italic, :padding,
-      :alignment, :multi_line
+      :alignment, :multi_line, :valign, :leading
 
     alias_method :bold?, :bold
     alias_method :italic?, :italic
@@ -29,6 +29,8 @@ module PdfTempura
       @padding = options["padding"] || [0,0,0,0]
       @alignment = "center"
       @multi_line = false
+      @valign = "center"
+      @leader = 0
     end
 
   end

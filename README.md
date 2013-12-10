@@ -74,6 +74,8 @@ TextField options:
 - **alignment**: "left", "center" or "right". Aligns the text in the boundaries of the field. Default is "left".
 - **multi_line**: True or false. Forces the text to wrap to the next line when it hits the boundaries of the field. Default is false.
 - **padding**: An array of 4 numbers, representing top, right, bottom, left. It adds padding in pdf units inside the field.
+- **valign**: Defines vertical alignment of the text in the box, top, center, or bottom.
+- **leading**: When multi_line is true, this will add top_margin to each wrapped line of text.
 
 ```ruby
 page 1 do
@@ -125,7 +127,7 @@ class MyDoc < PdfTempura::Document
   page 1 do
     table :stuff, [500,50], height: 300, number_of_rows: 10, row_height: 25, cell_padding: 1 do
       text_column :pin, 50
-      spacer 5
+      space 5
       checkbox_column :last_name, 100
     end
   end
@@ -145,12 +147,12 @@ The `table` call takes a name, the x,y position of the top-left corner
 of the table, the number of rows, either row_height or height (or both), and
 cell padding.
 
-Inside the table block, you define columns or spacers.  Columns themselves have
+Inside the table block, you define columns or spaces.  Columns themselves have
 amalgamous names to those you may use in "page" to describe fields.  Use
 "text_column" for a column containing text, "checkbox_column" for a cell
 containing a checkbox.
 
-Spacer only takes one parameter, its width.
+Space only takes one parameter, its width.
 
 Column mimicks 'field', except you only specify the width of the column,
 the rest is figured out by the table.
@@ -261,6 +263,32 @@ data = {1 => ... data for page 1,
         2 => ... data for page 2,
         3 => ... data for page 3,
         4 => ... data for page 4}
+```
+
+### FieldSets
+A fieldset allows you to group pieces of data under a particular heading.  You
+define a fieldset simply by the name of the heading it will be contained under
+in the data.  This is to help you organize your data logically.
+
+```ruby
+class MyPdf < PdfTempura::Document
+  ...
+
+  page 1 do
+    field_set "customer" do
+      text_field "name",[0,0],[10,20]
+      text_field "address", [0,10],[10,20]
+    end
+  end
+
+end
+
+data = {
+  1 => {
+    "customer" => { "name" => "John Bazdaritch", "address" => "123 Hollywood Blvd" }
+  }
+}
+
 ```
 
 ### Debug mode
