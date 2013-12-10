@@ -32,4 +32,3 @@ module PdfTempura
   end
 end
 
-require_relative 'debug/table_annotation'
