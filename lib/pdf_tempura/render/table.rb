@@ -15,11 +15,12 @@ module PdfTempura
       end
 
       def render(pdf)
+        render_debug_annotation(pdf) if draw_outlines?
+
         @table.fields_for(@values) do |field,value|
           Render::Field.generate(field, value, @options).render(pdf)
         end
 
-        render_debug_annotation(pdf) if draw_outlines?
       end
 
       private
