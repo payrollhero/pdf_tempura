@@ -12,8 +12,8 @@ module PdfTempura
     end
 
     def render_into(pdf)
-      @pages.to_enum.with_index(0).each do |page, i|
-        pdf.start_new_page template: @template_path, template_page: (i % @template_page_count)+1
+      @pages.to_enum.with_index(0).each do |page, index|
+        pdf.start_new_page template: @template_path, template_page: ((index % @template_page_count) + 1)
         Render::Page.new(page,@options).render(pdf)
       end
     end
@@ -28,7 +28,8 @@ module PdfTempura
 
         tempfile.write pdf.render
         tempfile.rewind
-        yield(tempfile)
+
+        yield tempfile
       ensure
         tempfile.unlink
       end

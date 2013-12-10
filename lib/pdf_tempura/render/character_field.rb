@@ -47,5 +47,3 @@ module PdfTempura
     end
   end
 end
-
-require_relative 'debug/character_field_annotation'

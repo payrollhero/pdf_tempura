@@ -4,6 +4,7 @@ module PdfTempura
       class FieldSetAnnotation < OutsideAnnotation
 
         private
+
         def box_color
           "66CCFF"
         end

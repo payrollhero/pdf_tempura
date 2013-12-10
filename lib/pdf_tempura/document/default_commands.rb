@@ -1,7 +1,8 @@
 module PdfTempura
   module Document::DefaultCommands
+
     def self.included(base)
-      base.send(:attr_accessor,:fields)
+      base.send(:attr_accessor, :fields)
     end
 
     def text_field(name, coordinates, dimensions, options = {})
@@ -16,12 +17,13 @@ module PdfTempura
       fields << Document::Table.new(name, coordinates, options, &block)
     end
 
-    def boxed_characters(name,coordinates,height, options = {},&block)
-      fields << Document::BoxedCharacters.new(name,coordinates,height,options,&block)
+    def boxed_characters(name, coordinates, height, options = {}, &block)
+      fields << Document::BoxedCharacters.new(name, coordinates, height, options, &block)
     end
 
     def field_set(name,&block)
-      fields << Document::FieldSet.new(name,&block)
+      fields << Document::FieldSet.new(name, &block)
     end
+
   end
 end

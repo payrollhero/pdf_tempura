@@ -10,6 +10,7 @@ class MyPdf < PdfTempura::Document
     text_field "email", [193,602], [311.5,25.25], padding: [0,5,0,5], bold: true, font_name: "Courier"
     text_field "reason", [54,481], [502,311], padding: [5,5,5,5], multi_line: true, font_size: 18
     checkbox_field "accept", [192,554], [22,22]
+
     boxed_characters "pin", [139,146], 20, box_width: 19.75, box_spacing: 0 do
       characters 2
       space 8.5
@@ -20,7 +21,6 @@ class MyPdf < PdfTempura::Document
   end
 
   page 2 do
-    
     table "table", [57,688], number_of_rows: 16, height: 550,cell_padding: 1 do
       text_column "id",42, alignment: "center"
       text_column "name",232, padding: [5,5,5,5]

@@ -1,7 +1,7 @@
 module PdfTempura
   class Document::Table::BoxedCharacterColumn < Document::Table::Column
 
-    def initialize(name, height,options = {},&block)
+    def initialize(name, height, options = {}, &block)
       @name = name
       @height = height
       @options = options
@@ -13,7 +13,7 @@ module PdfTempura
     end
 
     def field_at(coordinates)
-      PdfTempura::Document::BoxedCharacters.new(@name,coordinates,@height,@options,&@block)
+      PdfTempura::Document::BoxedCharacters.new(@name, coordinates, @height, @options, &@block)
     end
 
   end
