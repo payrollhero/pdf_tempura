@@ -6,6 +6,7 @@ module PdfTempura
 
       def set_styling(pdf)
         pdf.fill_color = "000000"
+        pdf.font_size @field.font_size
         pdf.font @field.font_name, style: font_style
       end
 
@@ -31,10 +32,12 @@ module PdfTempura
 
       def field_options
         {
-          valign: :center,
+          valign: @field.valign.to_sym,
           align: @field.alignment.to_sym,
           single_line: !@field.multi_line?,
-          overflow: :shrink_to_fit, size: @field.font_size
+          overflow: :shrink_to_fit,
+          size: @field.font_size,
+          leading: @field.leading
         }
       end
 

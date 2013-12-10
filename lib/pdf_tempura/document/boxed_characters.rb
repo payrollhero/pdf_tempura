@@ -2,6 +2,7 @@ module PdfTempura
   class Document::BoxedCharacters < Document::Field::Base
 
     attr_reader :box_width, :box_spacing, :groups, :truncate, :text_options, :padding
+    attr_accessor :coordinates
     alias :truncate? :truncate
 
     validates :box_width, required: true, type: Numeric

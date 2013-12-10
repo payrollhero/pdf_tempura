@@ -29,7 +29,7 @@ module PdfTempura
 
     def y
       return 0 if fields.empty?
-      fields.map(&:y).min
+      fields.map(&:y).max
     end
 
     def width
@@ -39,7 +39,7 @@ module PdfTempura
 
     def height
       return 0 if fields.empty?
-      fields.map {|f| f.y + f.height}.max - y
+      y - fields.map {|f| f.y - f.height}.min
     end
 
     def padding

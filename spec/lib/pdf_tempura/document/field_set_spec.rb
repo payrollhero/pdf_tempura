@@ -19,17 +19,17 @@ describe PdfTempura::Document::FieldSet do
 
   describe "coordinate calculation" do
     it "calculates correct coordinates with one and two text fields" do
-      subject.text_field :name,[5,5],[20,20]
+      subject.text_field :name,[5,30],[20,20]
       subject.width.should == 20
       subject.x.should == 5
-      subject.y.should == 5
+      subject.y.should == 30
       subject.height.should == 20
 
-      subject.text_field :bar,[0,0], [50,10]
+      subject.text_field :bar,[0,30], [50,10]
       subject.width.should == 50
-      subject.height.should == 25
+      subject.height.should == 20
       subject.x.should == 0
-      subject.y.should == 0
+      subject.y.should == 30
     end
   end
 
