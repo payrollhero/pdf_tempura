@@ -1,5 +1,7 @@
 # PdfTempura
 
+[![Code Climate](https://codeclimate.com/github/payrollhero/pdf_tempura.png)](https://codeclimate.com/github/payrollhero/pdf_tempura)
+
 A gem for overlaying text and other fields onto PDF templates using Prawn.
 
 ## Installation
