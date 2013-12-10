@@ -60,12 +60,15 @@ module PdfTempura
     end
 
     def new_renderer
-      PdfTempura::Renderer.new(self.class.template_file_path,
+      PdfTempura::Renderer.new(
+        self.class.template_file_path,
         self.pages,
-        { debug: self.class.debug_options,
+        {
+          debug: self.class.debug_options,
           repeatable: self.class.repeatable_option,
           template_page_count: class_pages.count
-        })
+        }
+      )
     end
 
     def generate_pages_from_data(data)
@@ -75,6 +78,7 @@ module PdfTempura
           new_page.data = page_data || {}
         }
       end
+
       generate_missing_pages
     end
 

@@ -7,7 +7,7 @@ module PdfTempura
       def self.generate(field, value, options)
         case field
         when Document::CheckboxField
-          CheckboxField.new(field,value,options)
+          CheckboxField.new(field, value, options)
         when Document::TextField
           TextField.new(field, value, options)
         when Document::CharacterField
@@ -15,9 +15,9 @@ module PdfTempura
         when Document::BoxedCharacters
           BoxedCharacters.new(field, value, options)
         when Document::Table
-          Render::Table.new(field,value,options)
+          Render::Table.new(field, value, options)
         when Document::FieldSet
-          Render::FieldSet.new(field,value,options)
+          Render::FieldSet.new(field, value, options)
         else
           raise ArgumentError, "don't know how to handle field kind: #{field.class}"
         end

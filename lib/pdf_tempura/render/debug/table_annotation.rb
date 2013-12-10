@@ -4,6 +4,7 @@ module PdfTempura
       class TableAnnotation < OutsideAnnotation
 
         private
+
         def box_color
           "66CCFF"
         end
@@ -11,6 +12,7 @@ module PdfTempura
         def transparency
           0.20
         end
+
       end
     end
   end

@@ -9,7 +9,7 @@ module PdfTempura
     validates :cell_padding, type: Numeric
 
     def initialize(name,coordinates,options = {},&block)
-      super(name,coordinates,[0,0],options)
+      super name, coordinates, [0,0], options
       @columns = []
 
       instance_eval(&block) if block_given?
@@ -27,20 +27,20 @@ module PdfTempura
       @row_height ||= height.to_f / row_count.to_f
     end
 
-    def text_column(name,width,options = {})
-      columns << Document::Table::TextColumn.new(name,width,row_height,options)
+    def text_column(name, width, options = {})
+      columns << Document::Table::TextColumn.new(name, width, row_height, options)
     end
 
-    def checkbox_column(name,width,options = {})
-      columns << Document::Table::CheckboxColumn.new(name,width,row_height,options)
+    def checkbox_column(name, width, options = {})
+      columns << Document::Table::CheckboxColumn.new(name, width, row_height, options)
     end
 
-    def boxed_character_column(name,options = {},&block)
-      columns << Document::Table::BoxedCharacterColumn.new(name,row_height,options,&block)
+    def boxed_character_column(name, options = {}, &block)
+      columns << Document::Table::BoxedCharacterColumn.new(name, row_height, options, &block)
     end
 
     def space(width)
-      columns << Document::Table::Spacer.new(width,row_height)
+      columns << Document::Table::Spacer.new(width, row_height)
     end
 
     def fields_for(values, &block)
@@ -91,4 +91,3 @@ require_relative 'table/text_column'
 require_relative 'table/checkbox_column'
 require_relative 'table/spacer'
 require_relative 'table/boxed_character_column'
-

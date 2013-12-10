@@ -15,9 +15,7 @@ module PdfTempura
         end
 
         def label_options
-          super.merge({
-              align: :left
-            })
+          super.merge({ align: :left })
         end
 
       end
