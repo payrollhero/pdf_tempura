@@ -9,7 +9,7 @@ module PdfTempura
       def initialize(field, value, options = {})
         @field = field
         @options = options
-        @value = value.clone
+        @value = value ? value.dup : ""
 
         validate_value_length!
       end
