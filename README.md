@@ -37,10 +37,13 @@ Specify your template using:
 
 #### Specifying pages
 
-The `page` method can be used to specify a page. It takes number to specify the page, and a block where you specify your fields.
+The `page` method can be used to specify a page. It takes number to specify the page, 
+and a block where you specify your fields.  You may also specify default options for
+layout by passing them into the "page" call, they will be inherited into all the following
+layout
 
 ```ruby
-page 1 do
+page 1, alignment: "left" do
   # fields ...
 end
 ```
@@ -282,14 +285,15 @@ data = {1 => ... data for page 1,
 ### FieldSets
 A fieldset allows you to group pieces of data under a particular heading.  You
 define a fieldset simply by the name of the heading it will be contained under
-in the data.  This is to help you organize your data logically.
+in the data.  This is to help you organize your data logically.  You may also
+specify default options by passing an options hash into the field_set call.
 
 ```ruby
 class MyPdf < PdfTempura::Document
   ...
 
   page 1 do
-    field_set "customer" do
+    field_set "customer",font_size: 12 do
       text_field "name",[0,0],[10,20]
       text_field "address", [0,10],[10,20]
     end
