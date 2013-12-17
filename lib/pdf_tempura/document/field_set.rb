@@ -7,7 +7,7 @@ module PdfTempura
 
     validates :name, type: String
 
-    def initialize(name,options = {},&block)
+    def initialize(name, options = {}, &block)
       @name = name
       @fields = []
       @options = options

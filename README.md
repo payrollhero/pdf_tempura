@@ -85,7 +85,8 @@ end
 
 
 ##### Using default options
-You may use two methods to set default options for your text and other fields
+You may use the with_default_options method to set a context for options for all
+further method calls within the block
 - **with_default_options**: Sets the default options for all items within the block
 
 ```ruby
