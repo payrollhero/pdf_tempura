@@ -40,7 +40,7 @@ Specify your template using:
 The `page` method can be used to specify a page. It takes number to specify the page, 
 and a block where you specify your fields.  You may also specify default options for
 layout by passing them into the "page" call, they will be inherited into all the following
-layout
+calls unless overridden by the particular options to the call to text_field or table, etc.
 
 ```ruby
 page 1, alignment: "left" do
