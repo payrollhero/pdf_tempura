@@ -7,9 +7,10 @@ module PdfTempura
 
     validates :name, type: String
 
-    def initialize(name,&block)
+    def initialize(name,options = {},&block)
       @name = name
       @fields = []
+      @default_options = options[:default_options] || {}
 
       instance_eval(&block) if block_given?
       validate!
