@@ -74,6 +74,7 @@ module PdfTempura
     def generate_pages_from_data(data)
       data.each_with_index do |page_data,number|
         page = class_pages[number % class_pages.count ]
+
         self.pages << page.dup.tap{ |new_page|
           new_page.data = page_data || {}
         }
@@ -100,7 +101,8 @@ module PdfTempura
         raise ArgumentError.new("There are more pages in the data than pages defined.  Use 'repeatable' to repeat template pages in the document class.")
       end
 
-      data_for_pages = data.values_at(*(data.keys.select {|k| k.kind_of?(Numeric)}))
+      keys = data.keys.select{|key| key.kind_of?(Numeric)}
+      data_for_pages = data.values_at(*keys)
       generate_pages_from_data(data_for_pages)
     end
 

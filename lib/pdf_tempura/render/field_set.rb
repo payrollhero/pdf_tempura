@@ -24,6 +24,7 @@ module PdfTempura
       def render_debug_annotation(pdf)
         Debug::FieldSetAnnotation.new(@set).render(pdf)
       end
+
     end
   end
 end

@@ -20,6 +20,7 @@ module PdfTempura
           raise NoMethodError, "Can't validate undefined method '#{name}'."
         end
       end
+
     end
 
     private

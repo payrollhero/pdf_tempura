@@ -10,6 +10,7 @@ module PdfTempura
 
     def initialize(name,coordinates,options = {},&block)
       super name, coordinates, [0,0], options
+
       @columns = []
 
       instance_eval(&block) if block_given?

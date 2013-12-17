@@ -2,6 +2,7 @@ require_relative 'character_field'
 
 module PdfTempura
   class Document::TextField < Document::CharacterField
+
     private
 
     def load_options(options)
