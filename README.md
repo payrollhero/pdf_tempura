@@ -93,8 +93,8 @@ further method calls within the block
 - **with_default_options**: Sets the default options for all items within the block
 
 ```ruby
-page 1 do
-  text_field :number_one, [10,20], [100,50]
+page 1, alignment: "left" do
+  text_field :aligned_left, [10,20], [100,50]
   with_default_options :alignment => "right" do
     text_field :aligned_right, [40,60], [100,50]
   end
