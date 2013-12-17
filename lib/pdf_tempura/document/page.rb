@@ -3,7 +3,7 @@ module PdfTempura
     include Document::Validation
     include Document::DefaultCommands
 
-    def initialize(page_number,options = {})
+    def initialize(page_number, options = {})
       @number = page_number
       @fields = []
       @options = options
