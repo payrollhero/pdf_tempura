@@ -155,14 +155,6 @@ shared_examples "a field that accepts default commands" do
 
   end
 
-  describe ".set_default_options" do
-    it "changes the default options" do
-      subject.set_default_options :alignment => "center"
-      subject.text_field :one, [0,0], [50,50]
-      subject.fields.first.alignment.should == "center"
-    end
-  end
-
   describe ".with_default_options" do
     it "yields a block that changes the default options" do
       subject.with_default_options :alignment => "center" do

@@ -11,7 +11,6 @@ module PdfTempura
     def initialize(name,coordinates,options = {},&block)
       super name, coordinates, [0,0], options
       @columns = []
-      @default_options = options["default_options"] || {}
 
       instance_eval(&block) if block_given?
     end
@@ -29,15 +28,15 @@ module PdfTempura
     end
 
     def text_column(name, width, options = {})
-      columns << Document::Table::TextColumn.new(name, width, row_height, @default_options.merge(options))
+      columns << Document::Table::TextColumn.new(name, width, row_height, @options.merge(options))
     end
 
     def checkbox_column(name, width, options = {})
-      columns << Document::Table::CheckboxColumn.new(name, width, row_height, @default_options.merge(options))
+      columns << Document::Table::CheckboxColumn.new(name, width, row_height, @options.merge(options))
     end
 
     def boxed_character_column(name, options = {}, &block)
-      columns << Document::Table::BoxedCharacterColumn.new(name, row_height, @default_options.merge(options), &block)
+      columns << Document::Table::BoxedCharacterColumn.new(name, row_height, @options.merge(options), &block)
     end
 
     def space(width)
@@ -80,6 +79,7 @@ module PdfTempura
       @row_count = options["number_of_rows"]
       @padding = options["padding"] || [0,0,0,0]
       @cell_padding = options["cell_padding"] || 0
+      @options = options
 
       validate_height
     end

@@ -10,7 +10,7 @@ module PdfTempura
     def initialize(name,options = {},&block)
       @name = name
       @fields = []
-      @default_options = options[:default_options] || {}
+      @options = options
 
       instance_eval(&block) if block_given?
       validate!

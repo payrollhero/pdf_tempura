@@ -86,12 +86,10 @@ end
 
 ##### Using default options
 You may use two methods to set default options for your text and other fields
-- **set_default_options**: Sets the default options for all following layout items
 - **with_default_options**: Sets the default options for all items within the block
 
 ```ruby
 page 1 do
-  set_default_options :alignment => "left"
   text_field :number_one, [10,20], [100,50]
   with_default_options :alignment => "right" do
     text_field :aligned_right, [40,60], [100,50]
