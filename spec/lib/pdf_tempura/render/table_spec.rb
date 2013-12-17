@@ -27,12 +27,14 @@ describe PdfTempura::Render::Table do
 
   describe "render" do
 
+    let(:expected_options) {{"number_of_rows"=>10, "height"=>100}}
+
     it "renders each field with the appropriate data" do
       PdfTempura::Document::TextField.tap do |it|
-        it.should_receive(:new).with(:a, [0,100],[10,10], options).and_call_original
-        it.should_receive(:new).with(:b, [20,100],[10,10], options).and_call_original
-        it.should_receive(:new).with(:a, [0,90],[10,10], options).and_call_original
-        it.should_receive(:new).with(:b, [20,90],[10,10], options).and_call_original
+        it.should_receive(:new).with(:a, [0,100],[10,10], expected_options).and_call_original
+        it.should_receive(:new).with(:b, [20,100],[10,10], expected_options).and_call_original
+        it.should_receive(:new).with(:a, [0,90],[10,10], expected_options).and_call_original
+        it.should_receive(:new).with(:b, [20,90],[10,10], expected_options).and_call_original
       end
       described_class.new(doc_table,data,options).render(pdf)
     end

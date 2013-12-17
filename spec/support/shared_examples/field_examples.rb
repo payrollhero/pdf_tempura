@@ -155,6 +155,39 @@ shared_examples "a field that accepts default commands" do
 
   end
 
+  describe ".with_default_options" do
+    it "yields a block that changes the default options" do
+      subject.with_default_options :alignment => "center" do
+        text_field :one, [0,0], [50,50]
+      end
+      subject.text_field :two, [100,100], [50,50]
+      subject.fields.first.alignment.should == "center"
+      subject.fields[1].alignment.should_not == "center"
+    end
+
+    it "cascades to field_set" do
+      subject.with_default_options :alignment => "center" do
+        text_field :one, [0,0], [50,50]
+        field_set "three" do
+          text_field :four, [0,0], [60,60]
+        end
+      end
+      subject.text_field :two, [100,100], [50,50]
+      subject.fields.first.alignment.should == "center"
+      subject.fields[1].fields.first.alignment.should == "center"
+    end
+
+    it "cascades to table" do
+      subject.with_default_options :alignment => "center" do
+        table :two,[5,5],:number_of_rows => 20,:row_height => 10 do
+          text_column :three, 60
+        end
+      end
+
+      subject.fields.first.columns.first.options["alignment"].should == "center"
+    end
+  end
+
   describe ".text_field" do
     let(:name){ :text_field }
     let(:coordinates){ [10, 20] }

@@ -28,15 +28,15 @@ module PdfTempura
     end
 
     def text_column(name, width, options = {})
-      columns << Document::Table::TextColumn.new(name, width, row_height, options)
+      columns << Document::Table::TextColumn.new(name, width, row_height, @options.merge(options))
     end
 
     def checkbox_column(name, width, options = {})
-      columns << Document::Table::CheckboxColumn.new(name, width, row_height, options)
+      columns << Document::Table::CheckboxColumn.new(name, width, row_height, @options.merge(options))
     end
 
     def boxed_character_column(name, options = {}, &block)
-      columns << Document::Table::BoxedCharacterColumn.new(name, row_height, options, &block)
+      columns << Document::Table::BoxedCharacterColumn.new(name, row_height, @options.merge(options), &block)
     end
 
     def space(width)
@@ -79,6 +79,7 @@ module PdfTempura
       @row_count = options["number_of_rows"]
       @padding = options["padding"] || [0,0,0,0]
       @cell_padding = options["cell_padding"] || 0
+      @options = options
 
       validate_height
     end

@@ -37,10 +37,13 @@ Specify your template using:
 
 #### Specifying pages
 
-The `page` method can be used to specify a page. It takes number to specify the page, and a block where you specify your fields.
+The `page` method can be used to specify a page. It takes number to specify the page, 
+and a block where you specify your fields.  You may also specify default options for
+layout by passing them into the "page" call, they will be inherited into all the following
+calls unless overridden by the particular options to the call to text_field or table, etc.
 
 ```ruby
-page 1 do
+page 1, alignment: "left" do
   # fields ...
 end
 ```
@@ -82,6 +85,20 @@ page 1 do
   text_field :country, [10, 20], [200, 400], { default_value: "USA", font_size: 13, bold: true, alignment: left, multi_line:true }
 end
 ```
+
+
+##### Using default options
+You may use the with_default_options method to set a context for options for all
+further method calls within the block
+- **with_default_options**: Sets the default options for all items within the block
+
+```ruby
+page 1, alignment: "left" do
+  text_field :aligned_left, [10,20], [100,50]
+  with_default_options :alignment => "right" do
+    text_field :aligned_right, [40,60], [100,50]
+  end
+end
 
 ##### Checkbox fields
 You can specify a checkbox field using the `checkbox_field` method. It requires a name, an array of coordinates (x and y), and an array of dimensions (width and height).
@@ -268,14 +285,15 @@ data = {1 => ... data for page 1,
 ### FieldSets
 A fieldset allows you to group pieces of data under a particular heading.  You
 define a fieldset simply by the name of the heading it will be contained under
-in the data.  This is to help you organize your data logically.
+in the data.  This is to help you organize your data logically.  You may also
+specify default options by passing an options hash into the field_set call.
 
 ```ruby
 class MyPdf < PdfTempura::Document
   ...
 
   page 1 do
-    field_set "customer" do
+    field_set "customer",font_size: 12 do
       text_field "name",[0,0],[10,20]
       text_field "address", [0,10],[10,20]
     end
