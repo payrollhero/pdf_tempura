@@ -38,9 +38,11 @@ Specify your template using:
 #### Specifying pages
 
 The `page` method can be used to specify a page. It takes number to specify the page, 
-and a block where you specify your fields.  You may also specify default options for
-layout by passing them into the "page" call, they will be inherited into all the following
-calls unless overridden by the particular options to the call to text_field or table, etc.
+and a block where you specify your fields.
+
+You may also specify default options for layout by passing them into the "page" method.
+They will be inherited into all the page elements unless overridden by the options
+of that element.
 
 ```ruby
 page 1, alignment: "left" do
@@ -82,23 +84,9 @@ TextField options:
 
 ```ruby
 page 1 do
-  text_field :country, [10, 20], [200, 400], { default_value: "USA", font_size: 13, bold: true, alignment: left, multi_line:true }
+  text_field :country, [10, 20], [200, 400], default_value: "USA", font_size: 13, bold: true, alignment: left, multi_line:true
 end
 ```
-
-
-##### Using default options
-You may use the with_default_options method to set a context for options for all
-further method calls within the block
-- **with_default_options**: Sets the default options for all items within the block
-
-```ruby
-page 1, alignment: "left" do
-  text_field :aligned_left, [10,20], [100,50]
-  with_default_options :alignment => "right" do
-    text_field :aligned_right, [40,60], [100,50]
-  end
-end
 
 ##### Checkbox fields
 You can specify a checkbox field using the `checkbox_field` method. It requires a name, an array of coordinates (x and y), and an array of dimensions (width and height).
@@ -114,16 +102,16 @@ It also takes an options hash where you can set the following options:
 
 ```ruby
 page 1 do
-  checkbox_field :send_me_snacks, [10, 20], [20, 20], { default_value: true }
+  checkbox_field :send_me_snacks, [10, 20], [20, 20], default_value: true
 end
 ```
 
-#### Boxed Characters
+##### Boxed Characters
 This is a field which helps you to display a field which needs to be printed
 in a boxed fashion.  E.g. [H][E][L][L][O]-[W][O][R][L][D].
 
 ```ruby
-boxed_characters :name, [10,20], 20, {box_spacing: 1, box_width: 10} do
+boxed_characters :name, [10,20], 20, box_spacing: 1, box_width: 10 do
   characters 4
   space 2
   characters 4
@@ -137,7 +125,7 @@ Boxed Characters options:
 - **other**: You may use any of the options that are also in use with text_field
 EXCEPT for alignment, and multi-line.
 
-#### Tables
+##### Tables
 
 ```ruby
 class MyDoc < PdfTempura::Document
@@ -174,8 +162,6 @@ Space only takes one parameter, its width.
 Column mimicks 'field', except you only specify the width of the column,
 the rest is figured out by the table.
 
-##### Assigning Table Data
-
 Table data is assigned through assigning an array of hashes to the key
 named after the name of the table.
 
@@ -185,11 +171,56 @@ eg:
 data = {
  1 => {
    stuff: [
-     {:pin => "12 3456789 6", :last_name => "Doe"}
+     { pin: "12 3456789 6", last_name: "Doe"}
    ]
  }
 }
 ```
+
+##### Field Sets
+A field set allows you to group pieces of data under a particular heading.  You
+define a field set simply by the name of the heading it will be contained under
+in the data.  This is to help you organize your data logically.
+
+You may also specify default options for layout by passing them into the `field_set` method.
+They will be inherited into all the page elements unless overridden by the options
+of that element.
+
+```ruby
+class MyPdf < PdfTempura::Document
+  ...
+
+  page 1 do
+    field_set "customer", font_size: 12 do
+      text_field "name", [0,0], [10,20]
+      text_field "address", [0,10], [10,20]
+    end
+  end
+
+end
+
+data = {
+  1 => {
+    "customer" => { "name" => "John Bazdaritch", "address" => "123 Hollywood Blvd" }
+  }
+}
+```
+
+##### Specifying default options for a few elements
+The `with_default_options` block can be used to provide default options for all elements
+within it's specified block. These default options will be merged with the default options
+of the enclosing page, field set or table. Elements can override these default options
+by explicitly passing the option to the element.
+
+```ruby
+page 1, alignment: "left" do
+  text_field :aligned_left, [10,20], [100,50]
+
+  with_default_options alignment: "right" do
+    text_field :aligned_right, [40,60], [100,50]
+    text_field :also_aligned_left, [70,80], [100,50], alignment: "right"
+  end
+end
 
 #### Specifying reusable groups
 
@@ -198,8 +229,8 @@ If you have the same fields on multiple pages, you can use the `group` method to
 ```ruby
 group :employee_details do
   field :first_name, [10, 20], [100, 30]
-  field :surname, [120, 20], [200, 30], { bold: true }
-  field :company, [330, 20], [300, 30], { alignment: right }
+  field :surname, [120, 20], [200, 30], bold: true
+  field :company, [330, 20], [300, 30], alignment: right
 end
 ```
 
@@ -276,37 +307,11 @@ class MyPdf < PdfTempura::Document
   ...
 
 end
+
 data = {1 => ... data for page 1,
         2 => ... data for page 2,
         3 => ... data for page 3,
         4 => ... data for page 4}
-```
-
-### FieldSets
-A fieldset allows you to group pieces of data under a particular heading.  You
-define a fieldset simply by the name of the heading it will be contained under
-in the data.  This is to help you organize your data logically.  You may also
-specify default options by passing an options hash into the field_set call.
-
-```ruby
-class MyPdf < PdfTempura::Document
-  ...
-
-  page 1 do
-    field_set "customer",font_size: 12 do
-      text_field "name",[0,0],[10,20]
-      text_field "address", [0,10],[10,20]
-    end
-  end
-
-end
-
-data = {
-  1 => {
-    "customer" => { "name" => "John Bazdaritch", "address" => "123 Hollywood Blvd" }
-  }
-}
-
 ```
 
 ### Debug mode
