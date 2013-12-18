@@ -18,6 +18,9 @@ describe PdfTempura::Document do
         2 => {
           emergency_contact: "Francine Smith",
           phone_number: "123-456-7890"
+        },
+        "3" => {
+          pin: "123456"
         }
       }
     end
@@ -25,6 +28,7 @@ describe PdfTempura::Document do
     before :each do
       dummy_class.page(1){}
       dummy_class.page(2){}
+      dummy_class.page(3){}
     end
 
     it "loads the data into each correct page" do
@@ -37,9 +41,13 @@ describe PdfTempura::Document do
         "address" => "The Pentagon, Washington, DC"
       }
 
-      document.pages.last.data.should == {
+      document.pages[1].data.should == {
         "emergency_contact" => "Francine Smith",
         "phone_number" => "123-456-7890"
+      }
+
+      document.pages[2].data.should == {
+        "pin" => "123456"
       }
     end
 
@@ -54,7 +62,8 @@ describe PdfTempura::Document do
         {
           1 => {},
           2 => {},
-          3 => {}
+          3 => {},
+          4 => {}
         }
       end
       it "complains" do

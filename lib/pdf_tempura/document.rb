@@ -101,7 +101,7 @@ module PdfTempura
         raise ArgumentError.new("There are more pages in the data than pages defined.  Use 'repeatable' to repeat template pages in the document class.")
       end
 
-      keys = data.keys.select{|key| key.kind_of?(Numeric)}
+      keys = data.keys.select{|key| key.kind_of?(Numeric) || key.to_i.to_s == key.to_s}.sort {|key1,key2| key1.to_i <=> key2.to_i}
       data_for_pages = data.values_at(*keys)
       generate_pages_from_data(data_for_pages)
     end
