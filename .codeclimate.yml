@@ -1,0 +1,29 @@
+engines:
+  duplication:
+    enabled: true
+    config:
+      languages:
+        - ruby
+  fixme:
+    enabled: true
+  rubocop:
+    enabled: true
+
+ratings:
+  paths:
+  - Gemfile.lock
+  - "lib/**"
+  - "**.erb"
+  - "**.haml"
+  - "**.rb"
+  - "**.rhtml"
+  - "**.slim"
+  - "**.ngslim"
+  - "**.css"
+  - "**.coffee"
+  - "**.js"
+  - "**.es6"
+exclude_paths:
+  - spec/
+  - vendor/
+  - db/schema.rb
